@@ -1,0 +1,24 @@
+﻿@using Alaca.Core.Utilities.Localization;
+<MudMenu Icon="@Icons.Material.Outlined.Translate" Color="MudBlazor.Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
+    @foreach (var language in LocalizationConstants.SupportedLanguages)
+    {
+        <MudMenuItem OnClick="(()=> ChangeLanguageAsync(language.Code))">@language.DisplayName</MudMenuItem>
+    }
+</MudMenu>
+
+@code
+{
+    private async Task ChangeLanguageAsync(string languageCode)
+    {
+        var result = await _clientPreferenceManager.ChangeLanguageAsync(languageCode);
+        if (result.Success)
+        {
+            _snackBar.Add(result.Message, Severity.Success);
+            _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
+        }
+        else
+        {
+            _snackBar.Add(result.Message, Severity.Error);
+        }
+    }
+}

@@ -1,0 +1,84 @@
+﻿
+<EditForm Model="projectMilestone" OnValidSubmit="OnValidSubmit">
+    <MudDialog>
+        <TitleContent>
+            <MudText Typo="Typo.h6">
+                @if (true)
+                {
+                    @("Süreç Güncelleme")
+                }
+                else
+                {
+                    @("Yeni Süreç Kaydı")
+                }
+            </MudText>
+        </TitleContent>
+        <DialogContent>
+            <FluentValidationValidator @ref="_fluentValidationValidator" />
+            <MudGrid>
+                <MudItem md="12" sm="12" xs="12"><MudTextField For="()=>projectMilestone.ProjectMilestoneName" Label="Süreç Adı" @bind-Value="projectMilestone.ProjectMilestoneName" Margin="MudBlazor.Margin.Dense"></MudTextField></MudItem>
+                <MudItem md="12" sm="12" xs="12"><MudTextField For="()=>projectMilestone.Description" Label="Açıklama" @bind-Value="projectMilestone.Description" Margin="MudBlazor.Margin.Dense"></MudTextField></MudItem>
+                <MudItem md="6" sm="12" xs="12"><MudDatePicker For="()=>projectMilestone.MilestoneActualStartDate" @bind-Date="projectMilestone.MilestoneActualStartDate" DisableToolbar="true" Label="Hedef Başlama Tarihi" Margin="MudBlazor.Margin.Dense" PickerVariant="PickerVariant.Dialog"></MudDatePicker></MudItem>
+                <MudItem md="6" sm="12" xs="12"><MudDatePicker For="()=>projectMilestone.MilestoneActualFinishDate" @bind-Date="projectMilestone.MilestoneActualFinishDate" DisableToolbar="true" Label="Hedef Bitiş Tarihi" Margin="MudBlazor.Margin.Dense" PickerVariant="PickerVariant.Dialog"></MudDatePicker></MudItem>
+                <MudItem md="6" sm="12" xs="12"><MudDatePicker For="()=>projectMilestone.MilestoneTargetStartDate" @bind-Date="projectMilestone.MilestoneTargetStartDate" DisableToolbar="true" Label="Gerçekleşen Başlama Tarihi" Margin="MudBlazor.Margin.Dense" PickerVariant="PickerVariant.Dialog"></MudDatePicker></MudItem>
+                <MudItem md="6" sm="12" xs="12"><MudDatePicker For="()=>projectMilestone.MilestoneTargetFinishDate" @bind-Date="projectMilestone.MilestoneTargetFinishDate" DisableToolbar="true" Label="Gerçekleşen Bitiş Tarihi" Margin="MudBlazor.Margin.Dense" PickerVariant="PickerVariant.Dialog"></MudDatePicker></MudItem>
+                <MudItem md="6" sm="12" xs="12">
+                    <MudAutocomplete For="@(() => projectMilestone.SubContratorId)" T="Guid?" Label="Taşeron" @bind-Value="projectMilestone.SubContratorId"
+                                     SearchFunc="@SearchCustomer" ToStringFunc="@(e=>ToStringFuncCustomer(e))" Immediate="true" ResetValueOnEmptyText="true" />
+                </MudItem>
+                <MudItem md="6" sm="12" xs="12">
+                    <MudSelect For="()=>projectMilestone.SubcontratorTeamId" @bind-Value="projectMilestone.SubcontratorTeamId" Label="Taşeron Ekip" T="Guid?">
+                        <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                        @if (subContratorTeams != null)
+                        {
+                            @foreach (var item in subContratorTeams)
+                            {
+                                <MudSelectItem Value="item.SubContratorTeamId" T="Guid?">@item.SubcontratorTeamName</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem md="6" sm="12" xs="12">
+                    <MudSelect For="()=>projectMilestone.ProjectMilestoneStatuId" @bind-Value="projectMilestone.ProjectMilestoneStatuId" Label="Süreç Durumu" T="byte?">
+                        <MudSelectItem Value="null" T="byte?"></MudSelectItem>
+                        @if (projectMilestoneStatus != null)
+                        {
+                            @foreach (var item in projectMilestoneStatus)
+                            {
+                                <MudSelectItem Value="item.ProjectMilestoneStatuId" T="byte?">@item.ProjectMilestoneStatuName</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem md="6" sm="12" xs="12">
+                    <MudSelect @bind-Value="projectMilestone.ProjectMilestoneTypeId" Label="Süreç Tipi" T="byte?" For="()=>projectMilestone.ProjectMilestoneTypeId">
+                        <MudSelectItem Value="null" T="byte?"></MudSelectItem>
+                        @if (projectMilestoneTypes != null)
+                        {
+                            @foreach (var item in projectMilestoneTypes)
+                            {
+                                <MudSelectItem Value="item.ProjectMilestoneTypeId" T="byte?">@item.ProjectMilestoneTypeName</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem md="12" sm="12" xs="12">
+                    <MudSelect @bind-Value="projectMilestone.AssignedTo" Label="Sorumlu" T="Guid?" For="()=>projectMilestone.AssignedTo">
+                        <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                        @if (employees != null)
+                        {
+                            @foreach (var item in employees)
+                            {
+                                <MudSelectItem Value="item.EmployeeId" T="Guid?">@item.Name @item.Surname</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Warning" OnClick="Delete" Class="px-10">Sil</MudButton>
+            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" Class="px-10" ButtonType="MudBlazor.ButtonType.Submit">Kaydet</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>

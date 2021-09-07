@@ -1,0 +1,59 @@
+﻿@page "/StockStatus"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Stok Durumları</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewStockStatu" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="StockStatu" Data="stockStatus"
+                      Filterable="true" PageSize="10" ShowPager="true"
+                      Hoverable="true"
+                      Responsive="true"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))">
+                <DataGridColumns>
+                    <DataGridColumn TItem="StockStatu" Field="@nameof(StockStatu.StockStatuName)" Caption="Stok Statu"></DataGridColumn>
+                    <DataGridCheckColumn TItem="StockStatu" Field="@nameof(ActivityType.IsActive)" Caption="Aktif">
+                        <DisplayTemplate>
+                            <Blazorise.Check Checked="@context.IsActive" ReadOnly="true" Disabled="true"></Blazorise.Check>
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                </DataGridColumns>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Stok Durum</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="stockStatu" OnValidSubmit="Save">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+                <MudGrid>
+                    <MudItem sm="12" md="12" xs="12">
+                        <MudSelect Margin="Margin.Dense" Label="Durum" T="bool" @bind-Value="stockStatu.IsActive">
+                            <MudSelectItem T="bool" Value="true">Aktif</MudSelectItem>
+                            <MudSelectItem T="bool" Value="false">Pasif</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="12"><MudTextField @bind-Value="stockStatu.StockStatuName" Label="Stok Durum" For="()=>stockStatu.StockStatuName"></MudTextField></MudItem>
+                </MudGrid>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="CloseModel" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                    @if (stockStatu.StockStatuId != Guid.Empty)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                    }
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

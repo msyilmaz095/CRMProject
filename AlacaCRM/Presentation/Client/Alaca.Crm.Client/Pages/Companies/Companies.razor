@@ -1,0 +1,79 @@
+﻿@page "/Companies/"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Şirketler</CardTitle>
+            <div class="card-tools">
+                <MudButton OnClick="New" EndIcon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" Variant="Variant.Filled">Yeni Şirket</MudButton>
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="Company" Data="lstData" Filterable="true" ShowPager="true" PageSize="10"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>Get(e.Item.CompanyId))">
+                <ChildContent>
+                    <DataGridColumn TItem="Company" Field="@nameof(Company.CompanyName)" Caption="Şirket Adı" Editable="true" />
+                    <DataGridColumn TItem="Company" Field="@nameof(Company.Description)" Caption="Açıklama" Editable="true" />
+                    <DataGridCheckColumn TItem="Company" Field="@nameof(Company.IsActive)" Caption="Aktif" Editable="true" />
+                    <DataGridColumn TItem="Company" Field="@nameof(Company.Adress)" Caption="Adres" Editable="true" />
+                    <DataGridColumn TItem="Company" Field="@nameof(Company.ContactName)" Caption="İlgili Kişi" Editable="true" />
+                    <DataGridColumn TItem="Company" Field="@nameof(Company.Phone)" Caption="Telefon" Editable="true" />
+                    <DataGridColumn TItem="Company" Field="@nameof(Company.ConnectionString)" Caption="Connection" Editable="true" />
+                    <DataGridColumn TItem="Company" Field="@nameof(Company.CreateDate)" Caption="Kayıt Zamanı" Editable="true" />
+                    <DataGridColumn TItem="Company" Field="@nameof(Company.UpdateDate)" Caption="Güncelleme Zamanı" Editable="true" />
+                </ChildContent>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Şirket</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="@data" OnValidSubmit="()=>OnValidSubmit()">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+                <ValidationSummary style="color:red;" />
+                <div class="form-group">
+                    <label for="UserCode">Şirket Adı</label>
+                    <InputText @bind-Value="data.CompanyName" id="Company1" class="form-control"></InputText>
+                </div>
+                <div class="form-group">
+                    <label for="UserName">Açıklama</label>
+                    <InputText @bind-Value="data.Description" id="Description" class="form-control"></InputText>
+                </div>
+                <div class="form-group">
+                    <label for="Email">Aktif</label>
+                    <InputCheckbox @bind-Value="data.IsActive" id="IsActive"></InputCheckbox>
+                </div>
+                <div class="form-group">
+                    <label for="Password">Adres</label>
+                    <InputText @bind-Value="data.Adress" id="Adress" class="form-control"></InputText>
+                </div>
+                <div class="form-group">
+                    <label for="MobilePhone">Telefon No</label>
+                    <InputText @bind-Value="data.Phone" id="Phone" class="form-control"></InputText>
+                </div>
+                <div class="form-group">
+                    <label for="UserStatusId">İlgili Kişi</label>
+                    <InputText @bind-Value="data.ContactName" id="ContactName" class="form-control">
+                    </InputText>
+                </div>
+                <div class="form-group">
+                    <label for="UserStatusId">Connection String</label>
+                    <InputText @bind-Value="data.ConnectionString" id="ConnectionString" class="form-control">
+                    </InputText>
+                </div>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudButton Variant="Variant.Filled" @onclick="@(()=>modalRef.Hide())" Class="float-left" Color="MudBlazor.Color.Warning" EndIcon="@MudBlazor.Icons.Material.Filled.Close">Kapat</MudButton>
+                    <MudButton Variant="Variant.Filled" ButtonType="MudBlazor.ButtonType.Submit" Class="float-right" Color="MudBlazor.Color.Success" EndIcon="@MudBlazor.Icons.Material.Filled.Save">Kaydet</MudButton>
+                    <MudButton Variant="Variant.Filled" @onclick="Delete" Class="float-right mr-1" Color="MudBlazor.Color.Error" EndIcon="@MudBlazor.Icons.Material.Filled.Delete">Sil</MudButton>
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

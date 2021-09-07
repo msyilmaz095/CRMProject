@@ -1,0 +1,84 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>    
+    <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.FluentValidation" Version="2.0.1" />
+    <PackageReference Include="Blazorise" Version="0.9.4.1" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="0.9.4.1" />
+    <PackageReference Include="Blazorise.Components" Version="0.9.4.1" />
+    <PackageReference Include="Blazorise.DataGrid" Version="0.9.4.1" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.4.1" />
+    <PackageReference Include="Blazorized.AdminLte" Version="0.1.8" />
+    <PackageReference Include="Blazorized.AdminLte.Content" Version="3.0.7" />
+    <PackageReference Include="Microsoft.AspNet.SignalR.Client" Version="2.4.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.9" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.9" />
+    <PackageReference Include="MudBlazor" Version="5.0.14" />
+    <PackageReference Include="Radzen.Blazor" Version="3.7.3" />
+    <PackageReference Include="Smart.Blazor" Version="9.4.18" />
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="App.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Update="Shared\MainLayout.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Update="Shared\NavMenu.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Update="wwwroot\index.html">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Shared\LoginLayout.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Shared\LoginLayout.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\assets\images\node_modules\devextreme\dist\css\icons\dxicons.ttf" />
+    <Content Include="wwwroot\assets\images\node_modules\devextreme\dist\css\icons\dxicons.woff" />
+    <Content Include="wwwroot\assets\images\node_modules\jquery-ui\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="wwwroot\assets\images\node_modules\jquery-ui\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="wwwroot\assets\images\node_modules\jquery-ui\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="wwwroot\assets\images\node_modules\jquery-ui\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="wwwroot\assets\images\node_modules\jquery-ui\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="wwwroot\assets\images\node_modules\jquery-ui\themes\base\images\ui-icons_ffffff_256x240.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Libraries\Alaca.Core\Alaca.Core.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\Alaca.Entities\Alaca.Entities.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\Alaca.Validations\Alaca.Validations.csproj" />
+    <ProjectReference Include="..\Alaca.Crm.Client.Service\Alaca.Crm.Client.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NpmJs\Src\" />
+    <Folder Include="Report\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\images\node_modules\devextreme\dist\css\icons\dxicons.woff2" />
+    <None Include="wwwroot\site\bundle.js" />
+  </ItemGroup>
+
+</Project>

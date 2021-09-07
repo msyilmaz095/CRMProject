@@ -1,0 +1,27 @@
+﻿@page "/Stocks"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Stoklar</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewStock" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="Stock" Data="stocks"
+                      Filterable="true" PageSize="10" ShowPager="true"
+                      Hoverable="true"
+                      Responsive="true"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))">
+                <DataGridColumns>
+                    <DataGridColumn TItem="Stock" Field="@nameof(Stock.StockCode)" Caption="Stok Kod"></DataGridColumn>
+                    <DataGridColumn TItem="Stock" Field="@nameof(Stock.StockName)" Caption="Stok Adı"></DataGridColumn>
+                    <DataGridColumn TItem="Stock" Field="@nameof(Stock.Description)" Caption="Stok Açıklama"></DataGridColumn>
+                    <DataGridColumn TItem="Stock" Field="@nameof(Stock.SpecialCode1)" Caption="Özel Kod-1"></DataGridColumn>
+                    <DataGridColumn TItem="Stock" Field="@nameof(Stock.SpecialCode2)" Caption="Özel Kod-2"></DataGridColumn>
+                    <DataGridColumn TItem="Stock" Field="@nameof(Stock.SpecialCode3)" Caption="Özel Kod-3"></DataGridColumn>
+                </DataGridColumns>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>

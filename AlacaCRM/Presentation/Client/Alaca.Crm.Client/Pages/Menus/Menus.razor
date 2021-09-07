@@ -1,0 +1,76 @@
+﻿@page "/menus"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Menüler</CardTitle>
+        </Title>
+        <Body>
+            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" FullWidth="true" OnClick="()=>New(null)">
+                Üst Menü Kaydı
+            </MudButton>
+            @*<MudButton @onclick="()=>New(null)">Üst Menu</MudButton>*@
+            <MudTreeView CanActivate="true" Items="lstData" CanSelect="true" @bind-ActivatedValue="ActivatedValue" @bind-SelectedValues="SelectedValues">
+                <ItemTemplate>
+                    <MudTreeViewItem Text="context.MenuName" @bind-Expanded="@context.IsExpented" Items="@context.Menus" Value="@context" EndText="@context.MainMenuId?.ToString()" EndTextTypo="@Typo.caption">
+                        <Content>
+                            <MudTreeViewItemToggleButton Visible="context.Menus!= null && context.Menus.Count > 0" @bind-Expanded="@context.IsExpented" />
+                            <MudIcon Icon="@context.Icon" Class="ml-0 mr-2"></MudIcon>
+                            <MudText Color="context.IsActive?MudBlazor.Color.Dark:MudBlazor.Color.Error">
+                                @context.MenuName&nbsp;&nbsp;
+                                <a @onclick="()=>New(context.MenuId)" data-toggle="modal" data-target="#User-Form-Modal"><i class="fa fa-plus"></i></a>
+                                <a @onclick="()=>Get(context.MenuId)" data-toggle="modal" data-target="#User-Form-Modal"><i class="fa fa-edit"></i></a>
+                                <a @onclick="()=>Delete(context.MenuId)"><i class="fa fa-trash"></i></a>
+                            </MudText>
+                        </Content>
+                    </MudTreeViewItem>
+                </ItemTemplate>
+            </MudTreeView>
+        </Body>
+    </Card>
+</ContentMain>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Menu</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="@data" OnValidSubmit="()=>OnValidSubmit()">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+                <MudGrid>
+                    <MudItem md="12" sm="12" xs="12">
+                        <MudSelect Margin="Margin.Dense" Label="Durum" T="bool" @bind-Value="data.IsActive">
+                            <MudSelectItem T="bool" Value="true">Aktif</MudSelectItem>
+                            <MudSelectItem T="bool" Value="false">Pasif</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem md="12" sm="12" xs="12">
+                        <MudSelect T="Guid?" @bind-Value="data.MainMenuId" Label="Üst Menu" Margin="Margin.Dense" For="()=>data.MainMenuId">
+                            @if (MenuList != null)
+                            {
+                                @foreach (var item in MenuList)
+                                {
+                                    <MudSelectItem Value="item.MenuId" T="Guid?">@item.MenuName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem md="12" sm="12" xs="12"><MudTextField Label="Menu Adı" @bind-Value="data.MenuName" Margin="Margin.Dense" For="()=>data.MenuName"></MudTextField></MudItem>
+                    <MudItem md="12" sm="12" xs="12"><MudTextField Label="Açıklama" @bind-Value="data.Description" Margin="Margin.Dense" For="()=>data.Description"></MudTextField></MudItem>
+                    <MudItem md="12" sm="12" xs="12"><MudTextField Label="Url" @bind-Value="data.Url" Margin="Margin.Dense" For="()=>data.Url"></MudTextField></MudItem>
+                    <MudItem md="12" sm="12" xs="12"><MudTextField Label="Icon" @bind-Value="data.Icon" Margin="Margin.Dense" For="()=>data.Icon"></MudTextField></MudItem>
+                </MudGrid>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="@(()=>modalRef.Hide())" Class="float-left" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>
+@code {
+    private Menu ActivatedValue { get; set; }
+    private HashSet<Menu> SelectedValues { get; set; }
+}

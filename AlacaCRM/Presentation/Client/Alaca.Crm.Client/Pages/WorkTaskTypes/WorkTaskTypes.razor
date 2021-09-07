@@ -1,0 +1,22 @@
+﻿@page "/WorkTaskTypes"
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>İş Emri Tipleri</CardHeaderContent>
+        <CardHeaderActions>
+            <!--<MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewExpenseCard" Class="ml-auto" />-->
+            <MudIconButton Icon="@Icons.Material.Filled.AddBox" Color="MudBlazor.Color.Success" @onclick="NewWorkTaskType" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="WorkTaskType" Data="workTaskTypes"
+                  Filterable="true" PageSize="10" ShowPager="true"
+                  Hoverable="true"
+                  Responsive="true"
+                  Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))" SortMode="DataGridSortMode.Single">
+            <DataGridColumns>
+                <DataGridColumn TItem="WorkTaskType" Field="@nameof(WorkTaskType.WorkTaskTypeName)" Caption="İş Emri Tip Adı"></DataGridColumn>
+                <DataGridColumn TItem="WorkTaskType" Field="@nameof(WorkTaskType.Description)" Caption="Açıklama"></DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>

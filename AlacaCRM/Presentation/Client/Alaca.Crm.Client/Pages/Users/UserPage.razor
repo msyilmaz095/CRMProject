@@ -1,0 +1,69 @@
+﻿@page "/User/{UserId:guid}"
+<ContentMain>
+    <EditForm Model="@user" OnValidSubmit="OnValidSubmit">
+        <Card>
+            <Title>
+                <CardTitle>Kullanıcı</CardTitle>
+                <CardTools></CardTools>
+            </Title>
+            <Body>
+                <FluentValidationValidator />
+                <MudGrid>
+                    <MudItem md="6" xs="12" sm="12">
+                        <MudCard>
+                            <MudCardContent>
+                                <MudTextField @bind-Value="user.UserName" Label="Kullanıcı Adı" Variant="MudBlazor.Variant.Text" Margin="Margin.Dense" For="()=>user.UserName"></MudTextField>
+                                <MudTextField @bind-Value="user.Email" Label="Email" Variant="MudBlazor.Variant.Text" Margin="Margin.Dense" For="()=>user.Email"></MudTextField>
+                                <MudTextField @bind-Value="user.MobilePhone" Label="Telefon No" Variant="MudBlazor.Variant.Text" Margin="Margin.Dense" For="()=>user.MobilePhone"></MudTextField>
+                                <MudTextField @bind-Value="user.Password" Label="Parola" Variant="MudBlazor.Variant.Text" Margin="Margin.Dense" For="()=>user.Password"></MudTextField>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudItem>
+                    <MudItem md="6" xs="12" sm="12">
+                        <MudCard>
+                            <MudCardContent>
+                                <MudSelect T="Guid?" @bind-Value="user.UserRoleId" Label="Rol" Variant="MudBlazor.Variant.Text" Margin="Margin.Dense" For="()=>user.UserRoleId">
+                                    @if (userRoles != null)
+                                    {
+                                        @foreach (var item in userRoles)
+                                        {
+                                            <MudSelectItem T="Guid?" Value="@item.UserRoleId">@item.UserRoleName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                                <MudSelect @bind-Value="user.UserStatusId" Label="Durum" Variant="MudBlazor.Variant.Text" Margin="Margin.Dense" For="()=>user.UserStatusId">
+                                    <MudSelectItem Value="1">Aktif</MudSelectItem>
+                                    <MudSelectItem Value="2">Pasif</MudSelectItem>
+                                </MudSelect>
+                                <MudSelect T="Guid?" Label="Departmanlar" MultiSelection="true" @bind-SelectedValues="options" @bind-Value="value"
+                                           MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))">
+                                    @if (departments != null)
+                                    {
+                                        @foreach (var department in departments)
+                                        {
+                                            <MudSelectItem T="Guid?" Value="@department.DepartmentId">@department.DepartmentName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+
+                            </MudCardContent>
+                        </MudCard>
+                    </MudItem>
+                </MudGrid>
+            </Body>
+            <Footer>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="Close" Class="float-left" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                    @if (user.UserId != Guid.Empty)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="DeleteUser" Class="float-right" />
+                    }
+                </MudItem>
+            </Footer>
+        </Card>
+    </EditForm>
+</ContentMain>
+@code
+{
+}

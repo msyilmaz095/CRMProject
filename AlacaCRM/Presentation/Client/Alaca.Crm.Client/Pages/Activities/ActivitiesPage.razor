@@ -1,0 +1,36 @@
+﻿@page "/Activities"
+@inject IActivityService _activityService
+
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Aktiviteler</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewActivity" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="viewActivity" Data="lstActivity"
+                      Filterable="true" PageSize="10" ShowPager="true"
+                      Hoverable="true"
+                      Responsive="true"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))">
+                <DataGridColumns>
+                    <DataGridColumn TItem="viewActivity" Field="@nameof(viewActivity.ProjectName)" Caption="Proje"></DataGridColumn>
+                    <DataGridColumn TItem="viewActivity" Field="@nameof(viewActivity.CustomerName)" Caption="Müşteri"></DataGridColumn>
+                    <DataGridColumn TItem="viewActivity" Field="@nameof(viewActivity.EmployeeName)" Caption="Personel"></DataGridColumn>
+                    <DataGridColumn TItem="viewActivity" Field="@nameof(viewActivity.Location)" Caption="Lokasyon"></DataGridColumn>
+                    <DataGridColumn TItem="viewActivity" Field="@nameof(viewActivity.Explanation)" Caption="Açıklama"></DataGridColumn>
+                    <DataGridColumn TItem="viewActivity" Field="@nameof(viewActivity.ContactName)" Caption="Görüşülen Kişi"></DataGridColumn>
+                    <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="viewActivity" Field="@nameof(viewActivity.StartDate)" Caption="Başlama Tarihi"></DataGridDateColumn>
+                    <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="viewActivity" Field="@nameof(viewActivity.FinishDate)" Caption="Bitiş Tarihi"></DataGridDateColumn>
+                    <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="viewActivity" Field="@nameof(viewActivity.NextActivityDate)" Caption="Sonraki Aktivite Tarihi"></DataGridDateColumn>
+                </DataGridColumns>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+@code{
+  
+
+}

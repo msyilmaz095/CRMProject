@@ -1,0 +1,53 @@
+﻿@page "/MilestoneStatus"
+
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                Proje Süreç Durumu
+            </MudText>
+        </CardHeaderContent>
+        <CardHeaderActions><MudIconButton Icon="@MudBlazor.Icons.Filled.Add" Color="@MudBlazor.Color.Success" OnClick="NewMilestoneStatus"></MudIconButton></CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="ProjectMilestoneStatu" Sortable="true" Filterable="true" Responsive="true" Data="projectMilestoneStatus" RowClicked="@(e=>RowClick(e.Item))"
+                  Class="table table-striped table-bordered table-hover">
+            <DataGridColumn Field="@nameof(ProjectMilestoneStatu.ProjectMilestoneStatuName)" TItem="ProjectMilestoneStatu" Caption="Adı"></DataGridColumn>
+            <DataGridCheckColumn Field="@nameof(ProjectMilestoneStatu.IsActive)" TItem="ProjectMilestoneStatu" Caption="Aktif" TextAlignment="Blazorise.TextAlignment.Center">
+                <DisplayTemplate>
+                    <Blazorise.Check TValue="bool" Checked="context.IsActive" Disabled="true" ReadOnly="true" />
+                </DisplayTemplate>
+            </DataGridCheckColumn>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>
+<MudDialog @bind-IsVisible="visible">
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            Statu Kaydı
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudGrid>
+            <MudItem sm="12" md="12" xs="12">
+                <MudSelect Margin="Margin.Dense" Label="Durum" T="bool" @bind-Value="projectMilestoneStatu.IsActive">
+                    <MudSelectItem T="bool" Value="true">Aktif</MudSelectItem>
+                    <MudSelectItem T="bool" Value="false">Pasif</MudSelectItem>
+                </MudSelect>
+            </MudItem>
+            <MudItem sm="12" md="12" xs="12">
+                <MudTextField Label="Proje Durum Adı" @bind-Value="projectMilestoneStatu.ProjectMilestoneStatuName" For="()=>projectMilestoneStatu.ProjectMilestoneStatuName"></MudTextField>
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        @if (projectMilestoneStatu.ProjectMilestoneStatuId != 0)
+        {
+            <MudIconButton Color="MudBlazor.Color.Warning" Icon="@MudBlazor.Icons.Filled.Delete" OnClick="Delete">Sil</MudIconButton>
+        }
+        <MudIconButton Color="MudBlazor.Color.Primary" Icon="@MudBlazor.Icons.Filled.Save" OnClick="Save">Kaydet</MudIconButton>
+    </DialogActions>
+</MudDialog>
+@code {
+}

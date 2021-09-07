@@ -1,0 +1,23 @@
+﻿@page "/Shelfs"
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>Raflar</CardHeaderContent>
+        <CardHeaderActions>
+            <!--<MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewExpenseCard" Class="ml-auto" />-->
+            <MudIconButton Icon="@Icons.Material.Filled.AddBox" Color="MudBlazor.Color.Success" @onclick="NewShelf" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="Shelf" Data="shelfs"
+                  Filterable="true" PageSize="10" ShowPager="true"
+                  Hoverable="true"
+                  Responsive="true"
+                  Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))" SortMode="DataGridSortMode.Single">
+            <DataGridColumns>
+                <DataGridColumn TItem="Shelf" Field="@nameof(Shelf.ShelfName)" Caption="Raf Adı"></DataGridColumn>
+                <DataGridColumn TItem="Shelf" Field="@nameof(Shelf.ShelfStoreId)" Caption="Depo"></DataGridColumn>
+                <DataGridColumn TItem="Shelf" Field="@nameof(Shelf.Description)" Caption="Açıklama"></DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>

@@ -1,0 +1,40 @@
+﻿@page "/customer/{CustomerId:guid}"
+
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>
+                Müşteri Kartı
+            </CardTitle>
+        </Title>
+        <Body>
+            <MudTabs Elevation="4" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Centered="true" Color="@MudBlazor.Color.Primary">
+                <MudTabPanel Text="GENEL BİLGİLER">
+                    <CustomerGeneral CustomerId="@CustomerId"></CustomerGeneral>
+                </MudTabPanel>
+                @if (CustomerId != Guid.Empty)
+                {
+                    <MudTabPanel Text="ADRES">
+                        <CustomerLocations CustomerId="CustomerId"></CustomerLocations>
+                    </MudTabPanel>
+                    <MudTabPanel Text="YETKİLİ">
+                        <CustomerContact CustomerId="CustomerId"></CustomerContact>
+                    </MudTabPanel>
+                    <MudTabPanel Text="PROJE">
+                        <CustomerProjects CustomerId="CustomerId"></CustomerProjects>
+                    </MudTabPanel>
+                    <MudTabPanel Text="AKTİVİTE">
+                        <Alaca.Crm.Client.Pages.Activities.ActivitiesPage CustomerId="@CustomerId"></Alaca.Crm.Client.Pages.Activities.ActivitiesPage>
+                    </MudTabPanel>
+                    <MudTabPanel Text="TAŞERON">
+                        <SubContratorTeams CustomerId="@CustomerId"></SubContratorTeams>
+                    </MudTabPanel>
+                }
+            </MudTabs>
+        </Body>
+    </Card>
+</ContentMain>
+@code{
+    [Parameter]
+    public Guid CustomerId { get; set; }
+}

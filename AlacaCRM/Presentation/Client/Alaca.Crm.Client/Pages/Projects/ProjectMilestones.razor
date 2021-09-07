@@ -1,0 +1,24 @@
+﻿
+<MudCard>
+    <MudCardContent>
+        <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewProjectMilestone" Class="ml-auto" FullWidth="true">Yeni Süreç</MudButton>
+        <DataGrid TItem="viewProjectMilestone" Data="viewProjectMilestones"
+                  Filterable="true" PageSize="10" ShowPager="true"
+                  Hoverable="true"
+                  Responsive="true"
+                  Class="table table-striped table-bordered table-hover" SortMode="DataGridSortMode.Single" RowClicked="@(e=>RowClick(e.Item))">
+            <DataGridColumns>
+                <DataGridColumn TItem="viewProjectMilestone" Field="@nameof(viewProjectMilestone.ProjectMilestoneName)" Caption="Süreç Adı"></DataGridColumn>
+                <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="viewProjectMilestone" Field="@nameof(viewProjectMilestone.MilestoneTargetStartDate)" Caption="Hedef Başlangıç Tarihi" Direction="Blazorise.SortDirection.Descending"></DataGridDateColumn>
+                <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="viewProjectMilestone" Field="@nameof(viewProjectMilestone.MilestoneTargetFinishDate)" Caption="Hedef Bitis Tarihi" Direction="Blazorise.SortDirection.Descending"></DataGridDateColumn>
+                <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="viewProjectMilestone" Field="@nameof(viewProjectMilestone.MilestoneActualStartDate)" Caption="Gerçekleşen Başlangıç Tarihi" Direction="Blazorise.SortDirection.Descending"></DataGridDateColumn>
+                <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="viewProjectMilestone" Field="@nameof(viewProjectMilestone.MilestoneActualFinishDate)" Caption="Gerçekleşen Bitiş Tarihi" Direction="Blazorise.SortDirection.Descending"></DataGridDateColumn>
+                <DataGridColumn TItem="viewProjectMilestone" Field="@nameof(viewProjectMilestone.SubContratorName)" Caption="Alt Yüklenici"></DataGridColumn>
+                <DataGridColumn TItem="viewProjectMilestone" Field="@nameof(viewProjectMilestone.SubContratorTeamName)" Caption="Ekip Adı"></DataGridColumn>
+                <DataGridColumn TItem="viewProjectMilestone" Field="@nameof(viewProjectMilestone.AssignedToName)" Caption="Temsilci"></DataGridColumn>
+                <DataGridColumn TItem="viewProjectMilestone" Field="@nameof(viewProjectMilestone.ProjectMilestoneTypeName)" Caption="Tip"></DataGridColumn>
+                <DataGridColumn TItem="viewProjectMilestone" Field="@nameof(viewProjectMilestone.ProjectMilestoneStatuName)" Caption="Durum"></DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>

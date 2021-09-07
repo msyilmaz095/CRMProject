@@ -1,0 +1,70 @@
+﻿@page "/customers"
+@inject ICustomerService _customerService
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>
+                Müşteri Listesi
+            </CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="New" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid Data="lstCustomers" TItem="Customer" Filterable="true" PageSize="10" ShowPager="true"
+                      Hoverable="true"
+                      Responsive="true"
+                      RowHoverCursor="@(e=>  Blazorise.Cursor.Pointer)"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))">
+                <DataGridColumns>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.CustomerCode)" Caption="Müşteri Kodu"></DataGridColumn>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.CustomerName)" Caption="Müşteri Adı"></DataGridColumn>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.CustomerTitle)" Caption="Müşteri Kısa Adı"></DataGridColumn>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.TaxAdministration)" Caption="Vergi Dairesi"></DataGridColumn>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.TaxNumber)" Caption="Vergi Numarası"></DataGridColumn>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.Phone1)" Caption="Telefon-1"></DataGridColumn>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.Phone2)" Caption="Telefon-2"></DataGridColumn>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.Fax)" Caption="Fax"></DataGridColumn>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.CustomField1)" Caption="Özel Kod-1"></DataGridColumn>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.CustomField2)" Caption="Özel Kod-2"></DataGridColumn>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.CustomField3)" Caption="Ozel Kod-3"></DataGridColumn>
+                    <DataGridColumn TItem="Customer" Field="@nameof(Customer.IsCandidate)" Caption="Aday Müşteri">
+                        <DisplayTemplate>
+                            @if (context.IsCandidate)
+                            {
+                                @("Evet")
+                            }
+                            else
+                            {
+                                @("Hayır")
+                            }
+                        </DisplayTemplate>
+                    </DataGridColumn>
+                </DataGridColumns>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+@code{
+    List<Customer> lstCustomers;
+    //Customer SelectedRow;
+    protected override async Task OnInitializedAsync()
+    {
+        lstCustomers = (await _customerService.GetAll()).Data.ToList();
+    }
+
+    protected void RowClick(Customer row)
+    {
+        NavigateToCustomer(row.CustomerId);
+    }
+
+    protected void New()
+    {
+        NavigateToCustomer(Guid.Empty);
+    }
+
+    protected void NavigateToCustomer(Guid CustomerId)
+    {
+        _navigationManager.NavigateTo("/customer/" + CustomerId);
+    }
+}

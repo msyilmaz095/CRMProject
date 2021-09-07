@@ -1,0 +1,78 @@
+﻿<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">Stok Birimleri</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="New" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="StockUnit" Data="stockUnits"
+                  Hoverable="true"
+                  Responsive="true"
+                  Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))">
+            <DataGridColumn TItem="StockUnit" Field="@nameof(StockUnit.StockUnitName)" Caption="Birim Adı"></DataGridColumn>
+            <DataGridColumn TItem="StockUnit" Field="@nameof(StockUnit.SpecialCode1)" Caption="Özel Kod-1"></DataGridColumn>
+            <DataGridColumn TItem="StockUnit" Field="@nameof(StockUnit.SpecialCode2)" Caption="Özel Kod-2"></DataGridColumn>
+            <DataGridColumn TItem="StockUnit" Field="@nameof(StockUnit.SpecialCode3)" Caption="Özel Kod-3"></DataGridColumn>
+            <DataGridColumn TItem="StockUnit" Field="@nameof(StockUnit.Length)" Caption="Uzun"></DataGridColumn>
+            <DataGridColumn TItem="StockUnit" Field="@nameof(StockUnit.Width)" Caption="En"></DataGridColumn>
+            <DataGridColumn TItem="StockUnit" Field="@nameof(StockUnit.Height)" Caption="Yükseklik"></DataGridColumn>
+            <DataGridColumn TItem="StockUnit" Field="@nameof(StockUnit.Mass)" Caption="Hacim"></DataGridColumn>
+            <DataGridColumn TItem="StockUnit" Field="@nameof(StockUnit.Weight)" Caption="Ağırlık"></DataGridColumn>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Stok Birim</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="stockUnit" OnValidSubmit="OnValidSubmitStockBarcode">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+                <MudGrid>
+                    <MudItem xs="12" sm="12" md="6"><MudTextField @bind-Value="stockUnit.StockUnitName" Label="Birim Adı" For="()=>stockUnit.StockUnitName"></MudTextField></MudItem>
+                    <MudItem xs="12" sm="12" md="6">
+                        <MudSelect @bind-Value="stockUnit.StockUnitDefinitionId" Label="Birim Seti" T="Guid?" For="()=>stockUnit.StockUnitDefinitionId">
+                            @if (stockUnitDefinitions != null)
+                            {
+                                foreach (var item in stockUnitDefinitions)
+                                {
+                                    <MudSelectItem Value="item.StockUnitDefinitionId" T="Guid?">@item.StockUnitDefinitionName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="4"><MudTextField @bind-Value="stockUnit.SpecialCode1" Label="Özel Kod-1" For="()=>stockUnit.SpecialCode1"></MudTextField></MudItem>
+                    <MudItem xs="12" sm="6" md="4"><MudTextField @bind-Value="stockUnit.SpecialCode2" Label="Özel Kod-2" For="()=>stockUnit.SpecialCode2"></MudTextField></MudItem>
+                    <MudItem xs="12" sm="6" md="4"><MudTextField @bind-Value="stockUnit.SpecialCode3" Label="Özel Kod-3" For="()=>stockUnit.SpecialCode3"></MudTextField></MudItem>
+                    <MudItem xs="12" sm="6" md="4"><MudNumericField @bind-Value="stockUnit.Width" Label="En" For="()=>stockUnit.Width"></MudNumericField></MudItem>
+                    <MudItem xs="12" sm="6" md="4"><MudNumericField @bind-Value="stockUnit.Height" Label="Boy" For="()=>stockUnit.Height"></MudNumericField></MudItem>
+                    <MudItem xs="12" sm="6" md="4"><MudNumericField @bind-Value="stockUnit.Length" Label="Uzunluk" For="()=>stockUnit.Length"></MudNumericField></MudItem>
+                    <MudItem xs="12" sm="6" md="4"><MudNumericField @bind-Value="stockUnit.Weight" Label="Ağırlık" For="()=>stockUnit.Weight"></MudNumericField></MudItem>
+                    <MudItem xs="12" sm="6" md="4"><MudNumericField @bind-Value="stockUnit.Mass" Label="Hacim" For="()=>stockUnit.Mass"></MudNumericField></MudItem>
+                    <MudItem xs="12" sm="6" md="4"><MudNumericField @bind-Value="stockUnit.Multiplier" Label="Çarpan" For="()=>stockUnit.Multiplier"></MudNumericField></MudItem>
+                </MudGrid>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="Close" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                    @if (stockUnit.StockUnitId != Guid.Empty)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                    }
+                    @*<MudButton Variant="Variant.Filled" @onclick="Close" Class="float-left" Color="MudBlazor.Color.Warning" EndIcon="@MudBlazor.Icons.Material.Filled.Close">Kapat</MudButton>
+                    <MudButton Variant="Variant.Filled" ButtonType="MudBlazor.ButtonType.Submit" Class="float-right" Color="MudBlazor.Color.Success" EndIcon="@MudBlazor.Icons.Material.Filled.Save">Kaydet</MudButton>
+                    @if (stockUnit.StockUnitId != Guid.Empty)
+                    {
+                        <MudButton Variant="Variant.Filled" @onclick="Delete" Class="float-right mr-1" Color="MudBlazor.Color.Error" EndIcon="@MudBlazor.Icons.Material.Filled.Delete">Sil</MudButton>
+                    }*@
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

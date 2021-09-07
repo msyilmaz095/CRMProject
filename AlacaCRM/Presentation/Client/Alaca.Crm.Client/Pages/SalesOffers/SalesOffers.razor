@@ -1,0 +1,36 @@
+﻿@page "/SalesOffers"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>TEKLİFLER</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewSalesOffer" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="viewSalesOffer" Data="salesOffers"
+                      Filterable="true" PageSize="10" ShowPager="true"
+                      Hoverable="true"
+                      Responsive="true"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))" SortMode="DataGridSortMode.Single">
+                <DataGridColumns>
+                    <DataGridColumn TItem="viewSalesOffer" Field="@nameof(viewSalesOffer.SalesOfferNumber)" Caption="Teklif No"></DataGridColumn>
+                    <DataGridColumn TItem="viewSalesOffer" Field="@nameof(viewSalesOffer.ReviseNumber)" Caption="Revizyon No"></DataGridColumn>
+                    <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="viewSalesOffer" Field="@nameof(viewSalesOffer.SalesOfferDate)" Caption="Teklif Tarihi" Direction="Blazorise.SortDirection.Descending"></DataGridDateColumn>
+                    <DataGridColumn TItem="viewSalesOffer" Field="@nameof(viewSalesOffer.CustomerName)" Caption="Müşteri Adı"></DataGridColumn>
+                    <DataGridColumn TItem="viewSalesOffer" Field="@nameof(viewSalesOffer.CustomerContactName)" Caption="Müşteri Yetkilisi"></DataGridColumn>
+                    <DataGridColumn TItem="viewSalesOffer" Field="@nameof(viewSalesOffer.AssignedToName)" Caption="Temsilci"></DataGridColumn>
+                    <DataGridColumn TItem="viewSalesOffer" Field="@nameof(viewSalesOffer.PaymentMethodName)" Caption="Ödeme Şekli"></DataGridColumn>
+                    <DataGridColumn TItem="viewSalesOffer" Field="@nameof(viewSalesOffer.CurrencyName)" Caption="Para Birimi"></DataGridColumn>
+                    <DataGridColumn TItem="viewSalesOffer" Field="@nameof(viewSalesOffer.SalesOfferTotal)" Caption="Total">
+                        <DisplayTemplate>
+                            @string.Format("{0:n2}", context.SalesOfferTotal)
+                        </DisplayTemplate>
+                    </DataGridColumn>
+                    <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="viewSalesOffer" Field="@nameof(viewSalesOffer.CreateDate)" Caption="Kayıt Tarihi"></DataGridDateColumn>
+                    <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="viewSalesOffer" Field="@nameof(viewSalesOffer.UpdateDate)" Caption="Güncelleme Tarihi"></DataGridDateColumn>
+                </DataGridColumns>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>

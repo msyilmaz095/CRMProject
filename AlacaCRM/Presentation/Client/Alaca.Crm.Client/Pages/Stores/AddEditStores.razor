@@ -1,0 +1,58 @@
+﻿@page "/AddEditStores/{StoreId:guid}"
+<MudCard>
+    @if (_mudDialog == null)
+    {
+        <MudCardHeader>
+            <CardHeaderContent>
+                @{
+                    if (StoreId == Guid.Empty)
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                            Depo Kaydı
+                        </MudText>
+                    }
+                    else
+                    {
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                Depo Düzeltme
+            </MudText>
+                    }
+                }
+            </CardHeaderContent>
+            <CardHeaderActions>
+            </CardHeaderActions>
+        </MudCardHeader>
+    }
+    <EditForm Model="store" OnValidSubmit="OnValidSubmit">
+        <FluentValidationValidator @ref="_fluentValidationValidator" />
+        <MudCardContent>
+            <MudGrid>
+                <MudItem md="12" sm="12" xs="12">
+                    <MudTextField Label="Depo Adı" @bind-Text="store.StoreName" T="string" For="()=>store.StoreName"></MudTextField>
+                </MudItem>
+                <MudItem md="12" sm="12" xs="12">
+                    <MudTextField Label="Depo Kodu" @bind-Text="store.StoreCode" T="string" For="()=>store.StoreCode"></MudTextField>
+                </MudItem>
+                <!--<MudItem md="12" sm="12" xs="12">
+                    <MudTextField Label="Fabrika " @bind-Text="store.StoreFactoryId" T="string" For="()=>store.StoreFactoryId"></MudTextField>
+                </MudItem>-->
+                <MudItem md="12" sm="12" xs="12">
+                    <MudTextField Label="Açıklaması" @bind-Text="store.Description" T="string" For="()=>store.Description"></MudTextField>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+        <MudCardActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="Cancel" Class="mr-auto p-2" />
+            @if (store.StoreId != Guid.Empty)
+            {
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="p-2" />
+            }
+            <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="p-2" ButtonType="MudBlazor.ButtonType.Submit" />
+        </MudCardActions>
+    </EditForm>
+</MudCard>
+@code{
+
+}

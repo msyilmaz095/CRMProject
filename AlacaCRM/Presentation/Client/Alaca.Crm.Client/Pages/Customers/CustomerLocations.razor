@@ -1,0 +1,204 @@
+﻿@page "/CustomerLocations"
+@inject ICustomerLocationService _customerLocationService
+@inject ICityService _cityService
+@inject IZoneService _zoneService
+@inject ILocationTypeService _locationTypeService
+@inject IDistrictService _districtService
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudAvatar Color="MudBlazor.Color.Secondary">Adres Bilgileri</MudAvatar>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">
+                Adres Bilgileri
+            </MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewLocation" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <div class="row">
+            @if (newLocation != null)
+            {
+                <div class="col-md-12">
+                    <EditForm Model="newLocation" OnValidSubmit="SaveLocation">
+                        <FluentValidationValidator />
+                        <MudCard>
+                            <MudCardContent>
+                                <MudSelect T="Guid?" @bind-Value="@newLocation.LocationTypeId" Label="Lokasyon Tipi" For="()=>newLocation.LocationTypeId">
+                                    <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                                    @if (lstLocationType != null)
+                                    {
+                                        foreach (var item in lstLocationType)
+                                        {
+                                            <MudSelectItem T="Guid?" Value="item.LocationTypeId">@item.LocationTypeName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                                <MudTextField @bind-Value="@newLocation.CustomerLocationName" Label="Lokasyon Adı" Variant="Variant.Text" For="()=>newLocation.CustomerLocationName"></MudTextField>
+                                <MudSelect T="Guid?" Label="Bölge" @bind-Value="@newLocation.ZoneId" For="()=>newLocation.ZoneId">
+                                    <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                                    @if (lstZone != null)
+                                    {
+                                        foreach (var item in lstZone)
+                                        {
+                                            <MudSelectItem T="Guid?" Value="item.ZoneId">@item.ZoneName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                                <MudSelect T="Guid?" Label="Şehir" @bind-Value="@newLocation.CityId" For="()=>newLocation.CityId">
+                                    <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                                    @if (lstCity != null)
+                                    {
+                                        foreach (var item in lstCity)
+                                        {
+                                            <MudSelectItem T="Guid?" Value="item.CityId">@item.CityName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                                <MudSelect T="Guid?" Label="İlçe" @bind-Value="@newLocation.DistrictId" For="()=>newLocation.DistrictId">
+                                    <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                                    @if (lstDistrict != null)
+                                    {
+                                        foreach (var item in lstDistrict)
+                                        {
+                                            <MudSelectItem T="Guid?" Value="item.Districtd">@item.DistrictName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                                <MudTextField @bind-Value="@newLocation.Address" Label="Adres" Variant="Variant.Text" For="()=>newLocation.Address"></MudTextField>
+                                <MudCheckBox T="bool" @bind-Checked="@newLocation.IsActive" Label="Aktif"></MudCheckBox>
+                                <MudCheckBox T="bool" @bind-Checked="@newLocation.IsMainAddress" Label="Merkez"></MudCheckBox>
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="CloseLocation" />
+                                <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="ml-auto" ButtonType="MudBlazor.ButtonType.Submit" />
+                            </MudCardActions>
+                        </MudCard>
+                    </EditForm>
+                </div>
+            }
+            else
+            {
+                @if (lstData != null)
+                {
+                    @foreach (var item in lstData)
+                    {
+                        <div class="col-md-4">
+                            <MudCard>
+                                <MudCardHeader>
+                                    <CardHeaderContent>
+                                        <MudText Typo="Typo.h6">
+                                            @item.LocationType?.LocationTypeName
+                                        </MudText>
+                                        <MudText Typo="Typo.h6">
+                                            @item.CustomerLocationName
+                                        </MudText>
+                                    </CardHeaderContent>
+                                </MudCardHeader>
+                                <MudCardContent>
+                                    <div class="form-group row">
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Bölge</label>
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.Zone?.ZoneName</label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Şehir</label>
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.City?.CityName</label>
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">İlçe</label>
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.District?.DistrictName</label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Adres</label>
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.Address</label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Aktif</label>
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3"><Blazorise.Check Checked="@item.IsMainAddress" ReadOnly="true" Disabled="true"></Blazorise.Check></label>
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Merkez</label>
+                                        <label for="CustomField1" class="col-form-label col-sm-12 col-md-3"><Blazorise.Check Checked="@item.IsActive" ReadOnly="true" Disabled="true"></Blazorise.Check></label>
+                                    </div>
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="MudBlazor.Color.Error" @onclick="()=>DeleteLocation(item)" />
+                                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" OnClick="()=>EditLocation(item)" />
+                                    @*<MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="MudBlazor.Color.Warning" @onclick="()=>DeleteLocation(item)">Sil</MudButton>
+                                        <MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="MudBlazor.Color.Primary" Class="ml-auto" @onclick="()=>EditLocation(item)">Düzenle</MudButton>*@
+                                </MudCardActions>
+                            </MudCard>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </MudCardContent>
+</MudCard>
+@code {
+    [Parameter]
+    public Guid CustomerId { get; set; }
+    List<CustomerLocation> lstData;
+    City[] lstCity;
+    District[] lstDistrict;
+    Zone[] lstZone;
+    LocationType[] lstLocationType;
+    CustomerLocation newLocation;
+    protected override async Task OnInitializedAsync()
+    {
+        lstData = (await _customerLocationService.GetLocationByCustomerIdAll(CustomerId)).Data.ToList();
+        lstCity = (await _cityService.GetAll()).Data;
+        lstDistrict = (await _districtService.GetAll()).Data;
+        lstZone = (await _zoneService.GetAll()).Data;
+        lstLocationType = (await _locationTypeService.GetAll()).Data;
+    }
+
+    protected void NewLocation()
+    {
+        newLocation = new CustomerLocation();
+    }
+
+    protected void CloseLocation()
+    {
+        newLocation = null;
+    }
+
+    protected void EditLocation(CustomerLocation data)
+    {
+        newLocation = data;
+    }
+
+    protected async void DeleteLocation(CustomerLocation data)
+    {
+        await _customerLocationService.Delete(data.CustomerLocationId);
+        RefreshData();
+    }
+
+    async void RefreshData()
+    {
+        lstData = (await _customerLocationService.GetLocationByCustomerIdAll(CustomerId)).Data.ToList();
+        CloseLocation();
+        StateHasChanged();
+    }
+
+    protected async void SaveLocation()
+    {
+        IResult result;
+        if (newLocation.CustomerLocationId == Guid.Empty)
+        {
+            newLocation.CustomerId = CustomerId;
+            result = await _customerLocationService.Insert(newLocation);
+        }
+        else
+        {
+            result = await _customerLocationService.Update(newLocation);
+        }
+        if (!result.Success)
+        {
+            await _dialogService.ShowDialogAlertError("Lokasyon Kaydı Başarısız", result.Message);
+        }
+        else
+        {
+            RefreshData();
+        }
+    }
+}

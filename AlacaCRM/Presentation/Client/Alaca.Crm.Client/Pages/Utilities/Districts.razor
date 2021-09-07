@@ -1,0 +1,72 @@
+﻿@page "/Districts"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>İlçeler</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="New" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="District" Data="lstData" Filterable="true" ShowPager="true" PageSize="10"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>Get(e.Item.Districtd))">
+                <ChildContent>
+                    <DataGridColumn TItem="District" Field="@nameof(District.DistrictName)" Caption="İlçe Adı" />
+                    <DataGridColumn TItem="District" Field="@nameof(District.CityId)" Caption="İl Adı">
+                        <DisplayTemplate>
+                            @(cities.FirstOrDefault(p=>p.CityId==context.CityId)?.CityName)
+                        </DisplayTemplate>
+                    </DataGridColumn>
+                    <DataGridCheckColumn TItem="District" Field="@nameof(District.IsActive)" Caption="Aktif">
+                        <DisplayTemplate>
+                            <Blazorise.Check Checked="@context.IsActive" ReadOnly="true" Disabled="true"></Blazorise.Check>
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                </ChildContent>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>İlçe</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="@data" OnValidSubmit="()=>OnValidSubmit()">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+                <MudGrid>
+                    <MudItem md="12" sm="12" xs="12">
+                        <MudSelect Margin="Margin.Dense" Label="Durum" T="bool" @bind-Value="data.IsActive">
+                            <MudSelectItem T="bool" Value="true">Aktif</MudSelectItem>
+                            <MudSelectItem T="bool" Value="false">Pasif</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem sm="12" md="12" xs="12">
+                        <MudSelect Label="Şehir Adı" Margin="Margin.Dense" T="Guid?" @bind-Value="data.CityId" For="()=>data.CityId">
+                            @if (cities != null)
+                            {
+                                foreach (var item in cities)
+                                {
+                                    <MudSelectItem T="Guid?" Value="item.CityId">@item.CityName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem sm="12" md="12" xs="12"><MudTextField Label="İlçe Adı" Margin="Margin.Dense" @bind-Value="data.DistrictName" For="()=>data.DistrictName"></MudTextField></MudItem>
+                </MudGrid>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="@(()=>modalRef.Hide())" Class="float-left" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                    @if (data.Districtd != Guid.Empty)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                    }
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

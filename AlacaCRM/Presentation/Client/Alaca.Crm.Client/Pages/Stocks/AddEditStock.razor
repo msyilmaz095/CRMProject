@@ -1,0 +1,119 @@
+﻿@page "/AddEditStock"
+@page "/AddEditStock/{StockId:guid}"
+<ContentMain>
+    <EditForm Model="stock" OnValidSubmit="OnValidSubmitStock">
+        <Card>
+            <Title>
+                <CardTitle>Stok Kaydı</CardTitle>
+            </Title>
+            <Body>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+                <MudGrid>
+                    <MudItem xs="12" sm="12" md="12"><MudTextField @bind-Value="stock.StockCode" For="()=>stock.StockCode" Label="Stok Kodu" Variant="Variant.Text" Margin="Margin.Dense"></MudTextField></MudItem>
+                    <MudItem xs="12" sm="12" md="12"><MudTextField @bind-Value="stock.StockName" For="()=>stock.StockName" Label="Stok Adı" Variant="Variant.Text" Margin="Margin.Dense"></MudTextField></MudItem>
+                    <MudItem xs="12" sm="12" md="12"><MudTextField @bind-Value="stock.Description" For="()=>stock.Description" Label="Açıklama" Variant="Variant.Text" Margin="Margin.Dense"></MudTextField></MudItem>
+                </MudGrid>
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+                    <MudTabPanel Text="Genel Bilgiler">
+                        <MudGrid>
+                            <MudItem xs="12" sm="6" md="4"><MudTextField @bind-Value="stock.SpecialCode1" For="()=>stock.SpecialCode1" Label="Özel Kod-1" Variant="Variant.Text" Margin="Margin.Dense"></MudTextField></MudItem>
+                            <MudItem xs="12" sm="6" md="4"><MudTextField @bind-Value="stock.SpecialCode2" For="()=>stock.SpecialCode2" Label="Özel Kod-2" Variant="Variant.Text" Margin="Margin.Dense"></MudTextField></MudItem>
+                            <MudItem xs="12" sm="6" md="4"><MudTextField @bind-Value="stock.SpecialCode3" For="()=>stock.SpecialCode3" Label="Özel Kod-3" Variant="Variant.Text" Margin="Margin.Dense"></MudTextField></MudItem>
+                            <MudItem xs="12" sm="6" md="4">
+                                <MudSelect T="Guid?" Label="Grup" Variant="Variant.Text" Margin="Margin.Dense" @bind-Value="stock.StockGroupId" For="()=>stock.StockGroupId">
+                                    <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                                    @if (stockGroups != null)
+                                    {
+                                        foreach (var item in stockGroups)
+                                        {
+                                            <MudSelectItem Value="item.StockGroupId" T="Guid?">@item.StockGroupName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="4">
+                                <MudSelect T="Guid?" Label="Marka" Variant="Variant.Text" Margin="Margin.Dense" For="()=>stock.StockBrandId" @bind-Value="stock.StockBrandId">
+                                    <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                                    @if (stockBrands != null)
+                                    {
+                                        foreach (var item in stockBrands)
+                                        {
+                                            <MudSelectItem Value="item.StockBrandId" T="Guid?">@item.StockBrandName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="4">
+                                <MudSelect T="Guid?" Label="Reyon" Variant="Variant.Text" Margin="Margin.Dense" @bind-Value="stock.StockRayonId" For="()=>stock.StockRayonId">
+                                    <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                                    @if (rayons != null)
+                                    {
+                                        foreach (var item in rayons)
+                                        {
+                                            <MudSelectItem Value="item.RayonId" T="Guid?">@item.RayonName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="4">
+                                <MudSelect T="Guid?" Label="Durum" Variant="Variant.Text" Margin="Margin.Dense" @bind-Value="stock.StockStatuId" For="()=>stock.StockStatuId">
+                                    <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                                    @if (stockStatus != null)
+                                    {
+                                        foreach (var item in stockStatus)
+                                        {
+                                            <MudSelectItem Value="item.StockStatuId" T="Guid?">@item.StockStatuName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="4">
+                                <MudSelect T="Guid?" Label="Ödeme Şekli" Variant="Variant.Text" Margin="Margin.Dense" @bind-Value="stock.PaymentMethodId" For="()=>stock.PaymentMethodId">
+                                    <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                                    @if (paymentMethods != null)
+                                    {
+                                        foreach (var item in paymentMethods)
+                                        {
+                                            <MudSelectItem Value="item.PaymentMethodId" T="Guid?">@item.PaymentMethodName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="4"><MudTextField @bind-Value="stock.Origin" Label="Menşei" Variant="Variant.Text" Margin="Margin.Dense" For="()=>stock.Origin"></MudTextField></MudItem>
+                            <MudItem xs="12" sm="6" md="4"><MudNumericField @bind-Value="stock.MinStockLevel" Label="Min. Stok Seviye" Variant="Variant.Text" Margin="Margin.Dense" For="()=>stock.MinStockLevel"></MudNumericField></MudItem>
+                            <MudItem xs="12" sm="6" md="4"><MudNumericField @bind-Value="stock.MaxStockLevel" Label="Max. Stok Seviye" Variant="Variant.Text" Margin="Margin.Dense" For="()=>stock.MaxStockLevel"></MudNumericField></MudItem>
+                            <MudItem xs="12" sm="6" md="2"><MudNumericField @bind-Value="stock.ShelfLife" Label="Raf Ömrü" Variant="Variant.Text" Margin="Margin.Dense" For="()=>stock.ShelfLife"></MudNumericField></MudItem>
+                            <MudItem xs="12" sm="6" md="2">
+                                <MudSelect T="short?" Label="Raf Ömrü Tipi" Variant="Variant.Text" Margin="Margin.Dense" For="()=>stock.ShelfLifeType">
+                                    <MudSelectItem T="short?" Value="1">Gün</MudSelectItem>
+                                    <MudSelectItem T="short?" Value="2">Ay</MudSelectItem>
+                                    <MudSelectItem T="short?" Value="3">Yıl</MudSelectItem>
+                                </MudSelect>
+                            </MudItem>
+                        </MudGrid>
+                    </MudTabPanel>
+                    <MudTabPanel Text="Birimler">
+                        <MudGrid>
+                            <MudItem xs="12" sm="12" md="12"><StockUnits stockUnits="stockUnits"></StockUnits></MudItem>
+                            <MudItem xs="12" sm="12" md="12"><StockBarcodes stockBarcodes="stockBarcodes" stockUnits="stockUnits"></StockBarcodes></MudItem>
+                        </MudGrid>
+                    </MudTabPanel>
+                    <MudTabPanel Text="Alış/Satış Fiyatları">
+                        <MudText>Content Three</MudText>
+                    </MudTabPanel>
+                </MudTabs>
+            </Body>
+            <Footer>
+                <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="Close" />
+                <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                @if (stock.StockId != Guid.Empty)
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                }
+                @*<MudButton @onclick="Close" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Warning" Size="MudBlazor.Size.Small">Kapat</MudButton>
+                <MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Size="MudBlazor.Size.Small" Class="float-right">Kaydet</MudButton>
+                <MudButton @onclick="Delete" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Error" Size="MudBlazor.Size.Small" Class="float-right">Sil</MudButton>*@
+            </Footer>
+        </Card>
+    </EditForm>
+</ContentMain>

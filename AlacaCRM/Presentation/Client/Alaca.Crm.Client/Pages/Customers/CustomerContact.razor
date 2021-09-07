@@ -1,0 +1,141 @@
+﻿@page "/CustomerContacts"
+@inject IContactService _contactService
+@inject IContactTypeService _contactTypeService
+@inject IPositionService _positionService
+@inject IContactStatuService _contactStatuService
+@inject IDepartmentService _departmentService
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudAvatar Color="MudBlazor.Color.Secondary">Yetkili Bilgileri</MudAvatar>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">
+                Yetkili Bilgileri
+            </MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewContact" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <CascadingValue Value="IsContantRecordPaga">
+            <div class="row">
+                @if (IsContantRecordPaga)
+                {
+                    <div class="col-md-12">
+                        <CustomerContactRecord contact="contact" OnShowActivityPageChange="ChangeShowRecordPage"></CustomerContactRecord>
+                    </div>
+                }
+                else
+                {
+                    @if (contacts != null)
+                    {
+                        @foreach (var item in contacts)
+                        {
+                            <div class="col-md-6">
+                                <MudCard>
+                                    <MudCardContent>
+                                        <div class="form-group row">
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Yetkili Tipi</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.ContactType?.ContactTypeName</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Durumu</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.ContactStatu?.ContactStatuName</label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Adı</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.Name</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Soyadı</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.SureName</label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">D.Tarihi</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.BirthDay</label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">İş Telefonu</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.OfficePhoneNumber</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Cep Telefonu</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.MobilePhoneNumber</label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Email</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.Email</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Dahili Kod</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.OfficePhoneNumberInternalCode</label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Departman</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.Department?.DepartmentName</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Pozisyon</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.Position?.PositionName</label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Açıklama</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.Explanation</label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">Lokasyon</label>
+                                            <label for="CustomField1" class="col-form-label col-sm-12 col-md-3">@item.CustomerLocation?.CustomerLocationName</label>
+                                        </div>
+                                    </MudCardContent>
+                                    <MudCardActions>
+                                        <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="MudBlazor.Color.Error" @onclick="()=>DeleteContact(item)" />
+                                        <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" OnClick="()=>EditContact(item)" />
+                                        @*<MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="MudBlazor.Color.Warning" @onclick="()=>DeleteContact(item)">Sil</MudButton>
+                                        <MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="MudBlazor.Color.Primary" Class="ml-auto" @onclick="()=>EditContact(item)">Düzenle</MudButton>*@
+                                    </MudCardActions>
+                                </MudCard>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </CascadingValue>
+    </MudCardContent>
+</MudCard>
+@code {
+    [Parameter] public Guid CustomerId { get; set; }
+    List<Contact> contacts;
+    bool IsContantRecordPaga = false;
+    public Contact contact { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        contacts = (await _contactService.GetContactByCustomerIdAll(CustomerId)).Data.ToList();
+    }
+
+    protected void NewContact()
+    {
+        contact = new Contact() { CustomerId = CustomerId };
+        IsContantRecordPaga = true;
+    }
+
+    protected void CloseContact()
+    {
+        IsContantRecordPaga = false;
+    }
+
+    protected void EditContact(Contact data)
+    {
+        contact = data;
+        IsContantRecordPaga = true;
+    }
+
+    protected async void DeleteContact(Contact data)
+    {
+        await _contactService.Delete(data.ContactId);
+        RefreshData();
+    }
+
+    protected async void RefreshData()
+    {
+        contacts = (await _contactService.GetContactByCustomerIdAll(CustomerId)).Data.ToList();
+        StateHasChanged();
+    }
+
+    public void ChangeShowRecordPage(bool showRecortPage)
+    {
+        IsContantRecordPaga = showRecortPage;
+        RefreshData();
+    }
+}

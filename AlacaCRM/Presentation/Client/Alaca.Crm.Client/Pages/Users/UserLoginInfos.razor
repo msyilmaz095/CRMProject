@@ -1,0 +1,21 @@
+﻿@page "/UserLoginInfos"
+@inherits UserLoginInfosBase
+
+<ContentMain>
+  <Card>
+      <Title>
+          <CardTitle>Kullanıcı Giriş Bilgileri</CardTitle>
+      </Title>
+      <Body>
+          <DataGrid TItem="viewUserLoginInfo" Data="lstloginInfo" Filterable="true" ShowPager="true" PageSize="10" class="table table-bordered table-striped">
+              <ChildContent>
+                  <DataGridColumn TItem="viewUserLoginInfo" Field="@nameof(viewUserLoginInfo.UserName)" Caption="Kullanıcı Adı" Editable="true" />
+                  <DataGridColumn TItem="viewUserLoginInfo" Field="@nameof(viewUserLoginInfo.Ipaddress)" Caption="Ip Adres" Editable="true" />
+                  <DataGridColumn TItem="viewUserLoginInfo" Field="@nameof(viewUserLoginInfo.UserAgent)" Caption="Browser" Editable="true" />
+                  <DataGridColumn TItem="viewUserLoginInfo" Field="@nameof(viewUserLoginInfo.Languages)" Caption="Dil" Editable="true" />
+                  <DataGridColumn TItem="viewUserLoginInfo" Field="@nameof(viewUserLoginInfo.CreateDate)" Caption="Giriş Zamanı" Editable="true" />
+              </ChildContent>
+          </DataGrid>
+      </Body>
+  </Card>
+</ContentMain>

@@ -1,0 +1,12 @@
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\bin\Release\net5.0\Alaca.Core.deps.json
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\bin\Release\net5.0\Alaca.Core.dll
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\bin\Release\net5.0\ref\Alaca.Core.dll
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\bin\Release\net5.0\Alaca.Core.pdb
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\obj\Release\net5.0\Alaca.Core.csprojAssemblyReference.cache
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\obj\Release\net5.0\Alaca.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\obj\Release\net5.0\Alaca.Core.AssemblyInfoInputs.cache
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\obj\Release\net5.0\Alaca.Core.AssemblyInfo.cs
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\obj\Release\net5.0\Alaca.Core.csproj.CoreCompileInputs.cache
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\obj\Release\net5.0\Alaca.Core.dll
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\obj\Release\net5.0\ref\Alaca.Core.dll
+D:\Alaca\AlacaCRM\Libraries\Alaca.Core\obj\Release\net5.0\Alaca.Core.pdb

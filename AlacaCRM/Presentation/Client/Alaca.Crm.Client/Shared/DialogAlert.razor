@@ -1,0 +1,30 @@
+﻿
+<MudDialog>
+    <DialogContent>
+        <div style="text-align:center;">
+            <MudIcon Color="(MudBlazor.Color)color" Icon="@icon" Size="MudBlazor.Size.Large" />
+        </div>
+        <span style="font-size:16px;font-weight:bold;text-align:center">
+            @((MarkupString)Content)
+        </span>
+    </DialogContent>
+    @*<DialogActions>
+        <MudButton Color="MudBlazor.Color.Primary" OnClick="Submit">Tamam</MudButton>
+    </DialogActions>*@
+</MudDialog>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public string Content { get; set; }
+
+    [Parameter]
+    public string icon { get; set; }
+
+    [Parameter]
+    public int color { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+}

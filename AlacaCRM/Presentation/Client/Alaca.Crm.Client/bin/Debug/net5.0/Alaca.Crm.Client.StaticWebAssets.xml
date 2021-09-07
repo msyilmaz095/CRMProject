@@ -1,0 +1,13 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/" Path="C:\Users\msyil\Documents\GitHub\Ozel-Projeler\AlacaCRM\Presentation\Client\Alaca.Crm.Client\bin\Debug\net5.0\wwwroot\" />
+  <ContentRoot BasePath="_content/Blazorise" Path="C:\Users\msyil\.nuget\packages\blazorise\0.9.4.1\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Blazorise.Bootstrap" Path="C:\Users\msyil\.nuget\packages\blazorise.bootstrap\0.9.4.1\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Blazorise.DataGrid" Path="C:\Users\msyil\.nuget\packages\blazorise.datagrid\0.9.4.1\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Blazorise.Snackbar" Path="C:\Users\msyil\.nuget\packages\blazorise.snackbar\0.9.4.1\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Blazorized.AdminLte" Path="C:\Users\msyil\.nuget\packages\blazorized.adminlte\0.1.8\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Blazorized.AdminLte.Content" Path="C:\Users\msyil\.nuget\packages\blazorized.adminlte.content\3.0.7\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Blazor-State" Path="C:\Users\msyil\.nuget\packages\blazor-state\3.4.4\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/MudBlazor" Path="C:\Users\msyil\.nuget\packages\mudblazor\5.0.14\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Radzen.Blazor" Path="C:\Users\msyil\.nuget\packages\radzen.blazor\3.7.3\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Smart.Blazor" Path="C:\Users\msyil\.nuget\packages\smart.blazor\9.4.18\build\..\staticwebassets\" />
+</StaticWebAssets>

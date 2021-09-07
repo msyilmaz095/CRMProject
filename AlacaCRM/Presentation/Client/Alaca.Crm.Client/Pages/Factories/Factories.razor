@@ -1,0 +1,24 @@
+﻿@page "/Factories"
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>Fabrikalar</CardHeaderContent>
+        <CardHeaderActions>
+            <!--<MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewExpenseCard" Class="ml-auto" />-->
+            <MudIconButton Icon="@Icons.Material.Filled.AddBox" Color="MudBlazor.Color.Success" @onclick="NewFactory" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="Factory" Data="factories"
+                  Filterable="true" PageSize="10" ShowPager="true"
+                  Hoverable="true"
+                  Responsive="true"
+                  Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))" SortMode="DataGridSortMode.Single">
+            <DataGridColumns>
+                <DataGridColumn TItem="Factory" Field="@nameof(Factory.FactoryName)" Caption="Fabrika Adı"></DataGridColumn>
+                <DataGridColumn TItem="Factory" Field="@nameof(Factory.FactoryCity)" Caption="İl"></DataGridColumn>
+                <DataGridColumn TItem="Factory" Field="@nameof(Factory.FactoryZone)" Caption="İlçe"></DataGridColumn>
+                <DataGridColumn TItem="Factory" Field="@nameof(Factory.Description)" Caption="Açıklama"></DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>

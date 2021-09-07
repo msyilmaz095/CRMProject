@@ -1,0 +1,35 @@
+﻿
+<EditForm Model="subContratorTeam" OnValidSubmit="OnValidSubmit">
+    <FluentValidationValidator />
+    <MudDialog>
+        <DialogContent>
+            <MudGrid>
+                <MudItem md="12" sm="12" lg="12">
+                    <MudTextField Margin="Margin.Dense" Label="Takım Adı" @bind-Value="subContratorTeam.SubcontratorTeamName" For="()=>subContratorTeam.SubcontratorTeamName"></MudTextField>
+                </MudItem>
+                <MudItem md="12" sm="12" lg="12">
+                    <MudSelect Margin="Margin.Dense" Label="Şehir" T="Guid?" @bind-Value="subContratorTeam.CityId" For="()=>subContratorTeam.CityId">
+                        @if (cities != null)
+                        {
+                            foreach (var item in cities)
+                            {
+                                <MudSelectItem T="Guid?" Value="item.CityId">@item.CityName</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem md="12" sm="12" lg="12">
+                    <MudTextField Margin="Margin.Dense" Label="Açıklama" @bind-Value="subContratorTeam.Description" For="()=>subContratorTeam.SubcontratorTeamName"></MudTextField>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="MudBlazor.Color.Error" @onclick="Cancel" Class="mr-auto p-2" />
+            @if (subContratorTeam.SubContratorTeamId != Guid.Empty)
+            {
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="p-2" />
+            }
+            <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="p-2" ButtonType="MudBlazor.ButtonType.Submit" />
+        </DialogActions>
+    </MudDialog>
+</EditForm>

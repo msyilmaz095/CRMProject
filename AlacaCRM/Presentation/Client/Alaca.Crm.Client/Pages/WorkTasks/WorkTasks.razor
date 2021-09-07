@@ -1,0 +1,30 @@
+﻿@page "/WorkTasks"
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>İş Emirleri</CardHeaderContent>
+        <CardHeaderActions>
+            <!--<MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewExpenseCard" Class="ml-auto" />-->
+            <MudIconButton Icon="@Icons.Material.Filled.AddBox" Color="MudBlazor.Color.Success" @onclick="NewWorkTask" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="WorkTask" Data="workTasks"
+                  Filterable="true" PageSize="10" ShowPager="true"
+                  Hoverable="true"
+                  Responsive="true"
+                  Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))" SortMode="DataGridSortMode.Single">
+            <DataGridColumns>
+                <DataGridColumn TItem="WorkTask" Field="@nameof(WorkTask.WorkTaskHeader)" Caption="İş Emri Başlığı"></DataGridColumn>
+                <DataGridColumn TItem="WorkTask" Field="@nameof(WorkTask.WorkTaskType)" Caption="İş Emri Tipi"></DataGridColumn>
+                <DataGridColumn TItem="WorkTask" Field="@nameof(WorkTask.PersonToDo)" Caption="Yapacak Personel"></DataGridColumn>
+                <DataGridColumn TItem="WorkTask" Field="@nameof(WorkTask.StartDate)" Caption="Başlangıç"></DataGridColumn>
+                <DataGridColumn TItem="WorkTask" Field="@nameof(WorkTask.FinishDate)" Caption="Bitiş"></DataGridColumn>
+                <DataGridColumn TItem="WorkTask" Field="@nameof(WorkTask.Description)" Caption="Açıklama"></DataGridColumn>
+                <DataGridColumn TItem="WorkTask" Field="@nameof(WorkTask.DocumentSerial)" Caption="Evrak Seri"></DataGridColumn>
+                <DataGridColumn TItem="WorkTask" Field="@nameof(WorkTask.DocumentNumber)" Caption="Evrak Sıra"></DataGridColumn>
+                <DataGridColumn TItem="WorkTask" Field="@nameof(WorkTask.CustomerId)" Caption="Cari"></DataGridColumn>
+                <DataGridColumn TItem="WorkTask" Field="@nameof(WorkTask.IsActive)" Caption="Aktif"></DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>

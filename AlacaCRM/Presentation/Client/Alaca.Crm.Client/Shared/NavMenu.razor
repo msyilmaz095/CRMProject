@@ -1,0 +1,41 @@
+﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<NavMenu> _localizer
+@using System.Security.Claims
+
+<UserCard />
+<MudNavMenu>
+    @*<MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Home">@_localizer["Home"]</MudNavLink>
+        <MudNavLink Href="/jobs" Target="_blank" Icon="@Icons.Material.Outlined.Work">
+        </MudNavLink>*@
+    @*@_localizer["Hangfire"]*@
+    @foreach (var menu in menus)
+    {
+        if (menu.Menus.Count > 0)
+        {
+            <MudNavGroup Tag="menu" Title="@menu.MenuName" Icon="@Icons.Filled.Settings" @ontoggle="ontoggle">
+                @foreach (var submenu in menu.Menus)
+                {
+                    <MudNavLink Href="@submenu.Url" Icon="@Icons.Filled.People" IconColor="MudBlazor.Color.Success">@submenu.MenuName</MudNavLink>
+                }
+            </MudNavGroup>
+        }
+        else
+        {
+            <MudNavLink Href="@menu.Url" Icon="@Icons.Filled.People" IconColor="MudBlazor.Color.Success">@menu.MenuName</MudNavLink>
+        }
+    }
+</MudNavMenu>
+
+@code {
+    private ClaimsPrincipal _authenticationStateProviderUser;
+    HashSet<Menu> menus = new HashSet<Menu> { };
+    protected override async Task OnParametersSetAsync()
+    {
+        _authenticationStateProviderUser = await _stateProvider.GetAuthenticationStateProviderUserAsync();
+        menus = await _accountService.GetAllMenu();
+    }
+
+    public void ontoggle(EventArgs value)
+    {
+
+    }
+}

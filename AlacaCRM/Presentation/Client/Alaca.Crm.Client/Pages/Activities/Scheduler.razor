@@ -1,0 +1,14 @@
+﻿@page "/Scheduler"
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/default.css">
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/default-base.css">
+
+    <Radzen.Blazor.RadzenScheduler @ref="@scheduler" Data="@activities" TItem="Activity" StartProperty="StartDate" EndProperty="FinishDate" TextProperty="Explanation"
+                                   TodayText="Bugün"
+                                   SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect LoadData="@OnLoadData" Style="height:800px;">
+
+        <RadzenDayView Text="Günlük" />
+        <RadzenWeekView Text="Haftalık" />
+        <RadzenMonthView Text="Aylık" />
+    </Radzen.Blazor.RadzenScheduler>
+    @code {
+    }

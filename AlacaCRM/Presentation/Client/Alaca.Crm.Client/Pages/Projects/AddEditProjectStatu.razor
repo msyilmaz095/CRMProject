@@ -1,0 +1,30 @@
+﻿<EditForm OnValidSubmit="Save" Model="projectStatu">
+    <FluentValidationValidator @ref="_fluentValidationValidator" />
+    <MudDialog>
+        <TitleContent>
+            <MudText Typo="Typo.h6">
+                Proje Durum
+            </MudText>
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                <MudItem sm="12" md="12" xs="12">
+                    <MudSelect Margin="Margin.Dense" Label="Durum" T="bool" @bind-Value="projectStatu.IsActive">
+                        <MudSelectItem T="bool" Value="true">Aktif</MudSelectItem>
+                        <MudSelectItem T="bool" Value="false">Pasif</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem sm="12" md="12" xs="12">
+                    <MudTextField Label="Proje Durum Adı" @bind-Value="projectStatu.ProjectStatuName" For="()=>projectStatu.ProjectStatuName"></MudTextField>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            @if (projectStatu.ProjectStatuId != 0)
+            {
+                <MudIconButton Color="MudBlazor.Color.Warning" Icon="@MudBlazor.Icons.Filled.Delete" OnClick="Delete">Sil</MudIconButton>
+            }
+            <MudIconButton Color="MudBlazor.Color.Primary" Icon="@MudBlazor.Icons.Filled.Save" ButtonType="MudBlazor.ButtonType.Submit">Kaydet</MudIconButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>

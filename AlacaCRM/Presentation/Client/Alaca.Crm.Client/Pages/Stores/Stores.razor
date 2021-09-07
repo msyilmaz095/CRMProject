@@ -1,0 +1,24 @@
+﻿@page "/Stores"
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>Depolar</CardHeaderContent>
+        <CardHeaderActions>
+            <!--<MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewExpenseCard" Class="ml-auto" />-->
+            <MudIconButton Icon="@Icons.Material.Filled.AddBox" Color="MudBlazor.Color.Success" @onclick="NewStore" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="Store" Data="stores"
+                  Filterable="true" PageSize="10" ShowPager="true"
+                  Hoverable="true"
+                  Responsive="true"
+                  Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))" SortMode="DataGridSortMode.Single">
+            <DataGridColumns>
+                <DataGridColumn TItem="Store" Field="@nameof(Store.StoreName)" Caption="Depo Adı"></DataGridColumn>
+                <DataGridColumn TItem="Store" Field="@nameof(Store.StoreCode)" Caption="Depo Kodu"></DataGridColumn>
+                <DataGridColumn TItem="Store" Field="@nameof(Store.StoreFactoryId)" Caption="Fabrikası"></DataGridColumn>
+                <DataGridColumn TItem="Store" Field="@nameof(Store.Description)" Caption="Açıklama"></DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>

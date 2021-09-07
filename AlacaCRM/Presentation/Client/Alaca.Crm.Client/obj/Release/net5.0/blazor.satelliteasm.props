@@ -1,0 +1,4 @@
+﻿<SatelliteAssembly>
+  <Assembly Name="obj\Release\net5.0\en\Alaca.Crm.Client.resources.dll" Culture="en" DestinationSubDirectory="en\" />
+  <Assembly Name="obj\Release\net5.0\tr\Alaca.Crm.Client.resources.dll" Culture="tr" DestinationSubDirectory="tr\" />
+</SatelliteAssembly>

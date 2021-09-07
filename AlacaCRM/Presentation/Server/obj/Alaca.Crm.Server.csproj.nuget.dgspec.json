@@ -1,0 +1,861 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Server\\Alaca.Crm.Server.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj",
+        "projectName": "Alaca.Core",
+        "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj",
+        "packagesPath": "C:\\Users\\msyil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\msyil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Autofac": {
+              "target": "Package",
+              "version": "[6.2.0, )"
+            },
+            "Autofac.Extras.DynamicProxy": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Castle.Core": {
+              "target": "Package",
+              "version": "[4.4.1, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[10.2.1, )"
+            },
+            "Microsoft.AspNetCore.Components": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.Extensions.Localization.Abstractions": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.12.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.12.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.CRM.Service\\Alaca.CRM.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.CRM.Service\\Alaca.CRM.Service.csproj",
+        "projectName": "Alaca.CRM.Service",
+        "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.CRM.Service\\Alaca.CRM.Service.csproj",
+        "packagesPath": "C:\\Users\\msyil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.CRM.Service\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\msyil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Dal\\Alaca.Crm.Dal.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Dal\\Alaca.Crm.Dal.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Validations\\Alaca.Validations.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Validations\\Alaca.Validations.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Autofac": {
+              "target": "Package",
+              "version": "[6.2.0, )"
+            },
+            "Autofac.Extras.DynamicProxy": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[10.2.1, )"
+            },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Dal\\Alaca.Crm.Dal.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Dal\\Alaca.Crm.Dal.csproj",
+        "projectName": "Alaca.Crm.Dal",
+        "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Dal\\Alaca.Crm.Dal.csproj",
+        "packagesPath": "C:\\Users\\msyil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Dal\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\msyil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.Extensions.Localization.Abstractions": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj",
+        "projectName": "Alaca.Entities",
+        "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj",
+        "packagesPath": "C:\\Users\\msyil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\msyil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Validations\\Alaca.Validations.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Validations\\Alaca.Validations.csproj",
+        "projectName": "Alaca.Validations",
+        "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Validations\\Alaca.Validations.csproj",
+        "packagesPath": "C:\\Users\\msyil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Validations\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\msyil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[10.2.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client.Service\\Alaca.Crm.Client.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client.Service\\Alaca.Crm.Client.Service.csproj",
+        "projectName": "Alaca.Crm.Client.Service",
+        "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client.Service\\Alaca.Crm.Client.Service.csproj",
+        "packagesPath": "C:\\Users\\msyil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client.Service\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\msyil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Components.Authorization": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.Extensions.Localization.Abstractions": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.JSInterop": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "MudBlazor": {
+              "target": "Package",
+              "version": "[5.0.14, )"
+            },
+            "Smart.Blazor": {
+              "target": "Package",
+              "version": "[9.4.18, )"
+            },
+            "Toolbelt.Blazor.HttpClientInterceptor": {
+              "target": "Package",
+              "version": "[9.2.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client\\Alaca.Crm.Client.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client\\Alaca.Crm.Client.csproj",
+        "projectName": "Alaca.Crm.Client",
+        "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client\\Alaca.Crm.Client.csproj",
+        "packagesPath": "C:\\Users\\msyil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\msyil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Validations\\Alaca.Validations.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Validations\\Alaca.Validations.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client.Service\\Alaca.Crm.Client.Service.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client.Service\\Alaca.Crm.Client.Service.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Blazored.FluentValidation": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            },
+            "Blazorise": {
+              "target": "Package",
+              "version": "[0.9.4.1, )"
+            },
+            "Blazorise.Bootstrap": {
+              "target": "Package",
+              "version": "[0.9.4.1, )"
+            },
+            "Blazorise.Components": {
+              "target": "Package",
+              "version": "[0.9.4.1, )"
+            },
+            "Blazorise.DataGrid": {
+              "target": "Package",
+              "version": "[0.9.4.1, )"
+            },
+            "Blazorise.Icons.FontAwesome": {
+              "target": "Package",
+              "version": "[0.9.4.1, )"
+            },
+            "Blazorized.AdminLte": {
+              "target": "Package",
+              "version": "[0.1.8, )"
+            },
+            "Blazorized.AdminLte.Content": {
+              "target": "Package",
+              "version": "[3.0.7, )"
+            },
+            "Microsoft.AspNet.SignalR.Client": {
+              "target": "Package",
+              "version": "[2.4.2, )"
+            },
+            "Microsoft.AspNetCore.Components.Authorization": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.DevServer": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.AspNetCore.SignalR.Client": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.Extensions.Http.Polly": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "Microsoft.Extensions.Identity.Core": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.Extensions.Localization": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "MudBlazor": {
+              "target": "Package",
+              "version": "[5.0.14, )"
+            },
+            "Radzen.Blazor": {
+              "target": "Package",
+              "version": "[3.7.3, )"
+            },
+            "Smart.Blazor": {
+              "target": "Package",
+              "version": "[9.4.18, )"
+            },
+            "System.Net.Http.Json": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Runtime.browser-wasm",
+              "version": "[5.0.9, 5.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "browser-wasm": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Server\\Alaca.Crm.Server.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Server\\Alaca.Crm.Server.csproj",
+        "projectName": "Alaca.Crm.Server",
+        "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Server\\Alaca.Crm.Server.csproj",
+        "packagesPath": "C:\\Users\\msyil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Server\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\msyil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Core\\Alaca.Core.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.CRM.Service\\Alaca.CRM.Service.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.CRM.Service\\Alaca.CRM.Service.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Libraries\\Alaca.Entities\\Alaca.Entities.csproj"
+              },
+              "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client\\Alaca.Crm.Client.csproj": {
+                "projectPath": "C:\\Users\\msyil\\Desktop\\Yeni klasör\\AlacaCRM\\AlacaCRM\\Presentation\\Client\\Alaca.Crm.Client\\Alaca.Crm.Client.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "AspNetCore.Reporting": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Autofac.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.1.0, )"
+            },
+            "Blazored.FluentValidation": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            },
+            "DevExpress.AspNetCore.Reporting": {
+              "target": "Package",
+              "version": "[21.1.4, )"
+            },
+            "DevExpress.Reporting.Core": {
+              "target": "Package",
+              "version": "[21.1.4, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.Server": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.AspNetCore.HttpOverrides": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "System.CodeDom": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

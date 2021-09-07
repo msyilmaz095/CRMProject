@@ -1,0 +1,122 @@
+﻿@page "/Employees"
+<!-- Main content -->
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Personeller</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@MudBlazor.Icons.Filled.Add" Color="@MudBlazor.Color.Success" OnClick="New"></MudIconButton>
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="Employee" Data="lstData" Filterable="true" ShowPager="true" PageSize="10" RowClicked="@(e=>Get(e.Item.EmployeeId))" Class="table table-bordered table-striped">
+                <ChildContent>
+                    <DataGridColumn TItem="Employee" Field="@nameof(Employee.Name)" Caption="Adı" Editable="true" />
+                    <DataGridColumn TItem="Employee" Field="@nameof(Employee.Surname)" Caption="Soyadı" Editable="true" />
+                    <DataGridDateColumn TItem="Employee" Field="@nameof(Employee.DateOfStart)" Caption="Doğum Tarihi" Editable="true" DisplayFormat="{0:dd.MM.yyyy}">
+                    </DataGridDateColumn>
+                    <DataGridColumn TItem="Employee" Field="@nameof(Employee.Email)" Caption="Email" Editable="true" />
+                    <DataGridColumn TItem="Employee" Field="@nameof(Employee.MobilePhone)" Caption="Cep Telefonu" Editable="true" />
+                    <DataGridColumn TItem="Employee" Field="@nameof(Employee.DepartmanId)" Caption="Departman" Editable="true" />
+                    <DataGridColumn TItem="Employee" Field="@nameof(Employee.PositionId)" Caption="Pozisyon" Editable="true" />
+                    <DataGridColumn TItem="Employee" Field="@nameof(Employee.CompanyId)" Caption="Şirket" Editable="true" />
+                    <DataGridCheckColumn TItem="Employee" Field="@nameof(Employee.CanLogin)" Caption="Aktif" Editable="true">
+                        <DisplayTemplate>
+                            <Blazorise.Check TValue="bool" Checked="context.IsActive" Disabled="true" ReadOnly="true" />
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                    <DataGridColumn TItem="Employee" Field="@nameof(Employee.CreateDate)" Caption="Kayıt Zamanı" Editable="true" />
+                    <DataGridColumn TItem="Employee" Field="@nameof(Employee.UpdateDate)" Caption="Güncelleme Zamanı" Editable="true" />
+                </ChildContent>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Personel</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="@data" OnValidSubmit="()=>OnValidSubmit()">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator />
+                <MudGrid>
+                    <MudItem md="12" sm="12" xs="12">
+                        <MudSelect Margin="Margin.Dense" Label="Durum" T="bool" @bind-Value="data.IsActive">
+                            <MudSelectItem T="bool" Value="true">Aktif</MudSelectItem>
+                            <MudSelectItem T="bool" Value="false">Pasif</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem md="6" sm="12" xs="12">
+                        <MudTextField Margin="Margin.Dense" @bind-Value="data.Name" Label="Adı" For="()=>data.Name"></MudTextField>
+                    </MudItem>
+                    <MudItem md="6" sm="12" xs="12">
+                        <MudTextField Margin="Margin.Dense" @bind-Value="data.Surname" Label="Soyadı" For="()=>data.Surname"></MudTextField>
+                    </MudItem>
+                    <MudItem md="12" sm="12" xs="12">
+                        <MudDatePicker Margin="Margin.Dense" @bind-Date="data.DateOfStart" Label="Doğum Tarihi" For="()=>data.DateOfStart" PickerVariant="PickerVariant.Dialog"></MudDatePicker>
+                    </MudItem>
+                    <MudItem md="6" sm="12" xs="12">
+                        <MudTextField Margin="Margin.Dense" @bind-Value="data.Email" Label="Email" For="()=>data.Email"></MudTextField>
+                    </MudItem>
+                    <MudItem md="6" sm="12" xs="12">
+                        <MudTextField Margin="Margin.Dense" @bind-Value="data.MobilePhone" Label="Cep Telefonu" For="()=>data.MobilePhone"></MudTextField>
+                    </MudItem>
+                    <MudItem md="6" sm="12" xs="12">
+                        <MudSelect T="Guid?" Margin="Margin.Dense" @bind-Value="data.DepartmanId" Label="Departman" For="()=>data.DepartmanId">
+                            @if (lstDepartments != null)
+                            {
+                                @foreach (var Departman in lstDepartments)
+                                {
+                                    <MudSelectItem T="Guid?" Value="@Departman.DepartmentId">@Departman.DepartmentName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem md="6" sm="12" xs="12">
+                        <MudSelect T="Guid?" Margin="Margin.Dense" @bind-Value="data.PositionId" Label="Pozisyon" For="()=>data.PositionId">
+                            @if (lstPosition != null)
+                            {
+                                @foreach (var position in lstPosition)
+                                {
+                                    <MudSelectItem T="Guid?" Value="@position.PositionId">@position.PositionName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem md="12" sm="12" xs="12">
+                        <MudSwitch @bind-Checked="@IsKullaniciCreate" Label="Kullanıcı Oluştur" Color="MudBlazor.Color.Success" />
+                    </MudItem>
+                    @if (IsKullaniciCreate)
+                    {
+                        <MudItem md="12" sm="12" xs="12">
+                            <MudTextField Margin="Margin.Dense" @bind-Value="dataUser.Password" Label="Parola" For="()=>dataUser.Password"></MudTextField>
+                        </MudItem>
+                        <MudItem md="12" sm="12" xs="12">
+                            <MudSelect T="Guid?" Margin="Margin.Dense" @bind-Value="dataUser.UserRoleId" Label="Rol" For="()=>dataUser.UserRoleId">
+                                @if (userRoles != null)
+                                    {
+                                    @foreach (var role in userRoles)
+                                        {
+                                        <MudSelectItem T="Guid?" Value="@role.UserRoleId">@role.UserRoleName</MudSelectItem>
+                                        }
+                                    }
+                            </MudSelect>
+                        </MudItem>
+                    }
+                </MudGrid>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="@(()=>modalRef.Hide())" Class="float-left" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                    @if (data.EmployeeId != Guid.Empty)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                    }
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

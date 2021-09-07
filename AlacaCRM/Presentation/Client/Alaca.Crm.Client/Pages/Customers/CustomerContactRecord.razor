@@ -1,0 +1,71 @@
+﻿<EditForm Model="contact" OnValidSubmit="SaveContact">
+    <FluentValidationValidator />
+    <MudCard>
+        <MudCardContent>
+            <MudSelect T="Guid?" @bind-Value="@contact.ContactTypeId" Label="İletişim Türü" For="()=>contact.ContactTypeId">
+                <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                @if (contactTypes != null)
+                {
+                    foreach (var item in contactTypes)
+                    {
+                        <MudSelectItem T="Guid?" Value="item.ContactTypeId">@item.ContactTypeName</MudSelectItem>
+                    }
+                }
+            </MudSelect>
+            <MudTextField @bind-Value="@contact.Name" Label="Adı" Variant="Variant.Text" For="()=>contact.Name"></MudTextField>
+            <MudTextField @bind-Value="@contact.SureName" Label="Soyadı" Variant="Variant.Text" For="()=>contact.SureName"></MudTextField>
+            <MudSelect T="Guid?" Label="Yetkili Durumu" @bind-Value="@contact.ContactStatuId" For="()=>contact.ContactStatuId">
+                <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                @if (contactStatus != null)
+                {
+                    foreach (var item in contactStatus)
+                    {
+                        <MudSelectItem T="Guid?" Value="item.ContactStatuId">@item.ContactStatuName</MudSelectItem>
+                    }
+                }
+            </MudSelect>
+            <MudSelect T="Guid?" Label="Departman" @bind-Value="@contact.DepartmentId" For="()=>contact.DepartmentId">
+                <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                @if (departments != null)
+                {
+                    foreach (var item in departments)
+                    {
+                        <MudSelectItem T="Guid?" Value="item.DepartmentId">@item.DepartmentName</MudSelectItem>
+                    }
+                }
+            </MudSelect>
+            <MudSelect T="Guid?" Label="Pozizyon" @bind-Value="@contact.PositionId" For="()=>contact.PositionId">
+                <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                @if (positions != null)
+                {
+                    foreach (var item in positions)
+                    {
+                        <MudSelectItem T="Guid?" Value="item.PositionId">@item.PositionName</MudSelectItem>
+                    }
+                }
+            </MudSelect>
+            <MudSelect T="Guid?" Label="Lokasyon" @bind-Value="@contact.CustomerLocationId" For="()=>contact.CustomerLocationId">
+                <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                @if (customerLocations != null)
+                {
+                    foreach (var item in customerLocations)
+                    {
+                        <MudSelectItem T="Guid?" Value="item.CustomerLocationId">@item.CustomerLocationName</MudSelectItem>
+                    }
+                }
+            </MudSelect>
+            <MudTextField @bind-Value="@contact.Email" Label="Email" Variant="Variant.Text" For="()=>contact.Email"></MudTextField>
+            <MudTextField @bind-Value="@contact.MobilePhoneNumber" Label="Cep Telefonu" Variant="Variant.Text" For="()=>contact.MobilePhoneNumber"></MudTextField>
+            <MudTextField @bind-Value="@contact.OfficePhoneNumber" Label="İş Telefonu" Variant="Variant.Text" For="()=>contact.OfficePhoneNumber"></MudTextField>
+            <MudTextField @bind-Value="@contact.OfficePhoneNumberInternalCode" Label="Dahili Kod" Variant="Variant.Text" For="()=>contact.OfficePhoneNumberInternalCode"></MudTextField>
+            <MudDatePicker @bind-Date="@contact.BirthDay" Label="Doğum Tarihi" Variant="Variant.Text" For="()=>contact.BirthDay" PickerVariant="PickerVariant.Dialog" DisableToolbar="true"></MudDatePicker>
+            <MudTextField @bind-Value="@contact.Explanation" Label="Açıklama" Variant="Variant.Text" For="()=>contact.Explanation"></MudTextField>
+        </MudCardContent>
+        <MudCardActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="Close" />
+            <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="ml-auto" ButtonType="MudBlazor.ButtonType.Submit" />
+            @*<MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="MudBlazor.Color.Warning" @onclick="Close">Kapat</MudButton>
+                <MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="MudBlazor.Color.Primary" Class="ml-auto" @onclick="()=>SaveContact()">Kaydet</MudButton>*@
+        </MudCardActions>
+    </MudCard>
+</EditForm>

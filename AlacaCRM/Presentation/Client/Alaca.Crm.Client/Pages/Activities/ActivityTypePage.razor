@@ -1,0 +1,124 @@
+﻿@page "/activitytype"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Aktivite Türleri</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewRecord" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="ActivityType" Data="activityTypes"
+                      Filterable="true" PageSize="10" ShowPager="true"
+                      Hoverable="true"
+                      Responsive="true"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))">
+                <DataGridColumns>
+                    <DataGridColumn TItem="ActivityType" Field="@nameof(ActivityType.ActivityTypeName)" Caption="Aktivite Türü"></DataGridColumn>
+                    <DataGridCheckColumn TItem="ActivityType" Field="@nameof(ActivityType.IsContactExist)" Caption="Görüşülen Kişileri Göster">
+                        <DisplayTemplate>
+                            @(context.IsContactExist == 0?"Gizle":context.IsContactExist == 1? "Göster Zorunlu Değil" : "Göster Zorunlu")
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                    <DataGridCheckColumn TItem="ActivityType" Field="@nameof(ActivityType.IsCustomerExist)" Caption="Müşterileri Göster">
+                        <DisplayTemplate>
+                            @(context.IsCustomerExist == 0?"Gizle":context.IsCustomerExist == 1? "Göster Zorunlu Değil" : "Göster Zorunlu")
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                    <DataGridCheckColumn TItem="ActivityType" Field="@nameof(ActivityType.IsEmployeeExist)" Caption="Personelleri Göster">
+                        <DisplayTemplate>
+                            @(context.IsEmployeeExist == 0?"Gizle":context.IsEmployeeExist == 1? "Göster Zorunlu Değil" : "Göster Zorunlu")
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                    <DataGridCheckColumn TItem="ActivityType" Field="@nameof(ActivityType.IsLocationExist)" Caption="Lokasyonları Göster">
+                        <DisplayTemplate>
+                            @(context.IsLocationExist == 0?"Gizle":context.IsLocationExist == 1? "Göster Zorunlu Değil" : "Göster Zorunlu")
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                    <DataGridCheckColumn TItem="ActivityType" Field="@nameof(ActivityType.IsProjectExist)" Caption="Projeleri Göster">
+                        <DisplayTemplate>
+                            @(context.IsProjectExist == 0?"Gizle":context.IsProjectExist == 1? "Göster Zorunlu Değil" : "Göster Zorunlu")
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                    <DataGridCheckColumn TItem="ActivityType" Field="@nameof(ActivityType.IsActive)" Caption="Aktif">
+                        <DisplayTemplate>
+                            <Blazorise.Check Checked="@context.IsActive" ReadOnly="true" Disabled="true"></Blazorise.Check>
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                    <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="ActivityType" Field="@nameof(ActivityType.CreateDate)" Caption="Kayıt Tarihi"></DataGridDateColumn>
+                    <DataGridColumn TItem="ActivityType" Field="@nameof(ActivityType.CreateUser)" Caption="Kayıt Yapan"></DataGridColumn>
+                    <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="ActivityType" Field="@nameof(ActivityType.UpdateDate)" Caption="Güncelleme Tarihi"></DataGridDateColumn>
+                    <DataGridColumn TItem="ActivityType" Field="@nameof(ActivityType.UpdateUser)" Caption="Güncelleme Yapan"></DataGridColumn>
+                </DataGridColumns>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Aktivite Türü</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="activityType" OnValidSubmit="Save">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+                <MudTextField @bind-Value="activityType.ActivityTypeName" Label="Aktivite Türü" For="()=>activityType.ActivityTypeName"></MudTextField>
+                <MudItem>
+                    <MudSelect T="byte?" @bind-Value="activityType.IsContactExist" Label="Görüşülen Kişi">
+                        <MudSelectItem T="byte?" Value="0">Gizle</MudSelectItem>
+                        <MudSelectItem T="byte?" Value="1">Göster Zorunlu Değil</MudSelectItem>
+                        <MudSelectItem T="byte?" Value="2">Göster Zorunlu</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem>
+                    <MudSelect T="byte?" @bind-Value="activityType.IsCustomerExist" Label="Müşteri">
+                        <MudSelectItem T="byte?" Value="0">Gizle</MudSelectItem>
+                        <MudSelectItem T="byte?" Value="1">Göster Zorunlu Değil</MudSelectItem>
+                        <MudSelectItem T="byte?" Value="2">Göster Zorunlu</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem>
+                    <MudSelect T="byte?" @bind-Value="activityType.IsEmployeeExist" Label="Personel">
+                        <MudSelectItem T="byte?" Value="0">Gizle</MudSelectItem>
+                        <MudSelectItem T="byte?" Value="1">Göster Zorunlu Değil</MudSelectItem>
+                        <MudSelectItem T="byte?" Value="2">Göster Zorunlu</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem>
+                    <MudSelect T="byte?" @bind-Value="activityType.IsLocationExist" Label="Lokasyon">
+                        <MudSelectItem T="byte?" Value="0">Gizle</MudSelectItem>
+                        <MudSelectItem T="byte?" Value="1">Göster Zorunlu Değil</MudSelectItem>
+                        <MudSelectItem T="byte?" Value="2">Göster Zorunlu</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem>
+                    <MudSelect T="byte?" @bind-Value="activityType.IsProjectExist" Label="Proje">
+                        <MudSelectItem T="byte?" Value="0">Gizle</MudSelectItem>
+                        <MudSelectItem T="byte?" Value="1">Göster Zorunlu Değil</MudSelectItem>
+                        <MudSelectItem T="byte?" Value="2">Göster Zorunlu</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem sm="12" md="12" xs="12">
+                    <MudSelect Margin="Margin.Dense" Label="Durum" T="bool" @bind-Value="activityType.IsActive">
+                        <MudSelectItem T="bool" Value="true">Aktif</MudSelectItem>
+                        <MudSelectItem T="bool" Value="false">Pasif</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="CloseModel" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                    @if (activityType.ActivityTypeId != Guid.Empty)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                    }
+                    @*<MudButton Variant="Variant.Filled" @onclick="CloseModel" Class="float-left" Color="MudBlazor.Color.Warning" EndIcon="@MudBlazor.Icons.Material.Filled.Close">Kapat</MudButton>
+                    <MudButton Variant="Variant.Filled" ButtonType="MudBlazor.ButtonType.Submit" Class="float-right" Color="MudBlazor.Color.Success" EndIcon="@MudBlazor.Icons.Material.Filled.Save">Kaydet</MudButton>
+                    <MudButton Variant="Variant.Filled" @onclick="Delete" Class="float-right mr-1" Color="MudBlazor.Color.Error" EndIcon="@MudBlazor.Icons.Material.Filled.Delete">Sil</MudButton>*@
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

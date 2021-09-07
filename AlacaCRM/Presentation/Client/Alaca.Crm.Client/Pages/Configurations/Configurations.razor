@@ -1,0 +1,63 @@
+﻿@page "/Configurations"
+
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">Parametreler</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="New" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="Configuration" Data="ConfigurationList" Filterable="true" ShowPager="true" PageSize="10" 
+                  Class="table table-striped table-bordered table-hover"
+                  RowClicked="@(e=>RowClick(e.Item))">
+            <DataGridColumns>
+                <DataGridColumn TItem="Configuration" Field="@nameof(Configuration.ConfigurationCode)" Caption="Kod" Editable="true" />
+                <DataGridColumn TItem="Configuration" Field="@nameof(Configuration.ConfigurationValue)" Caption="Değer" Editable="true" />
+                <DataGridColumn TItem="Configuration" Field="@nameof(Configuration.ConfigurationDescription)" Caption="Açıklama" Editable="true" />
+            </DataGridColumns>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Para Birimi</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="@configuration" OnValidSubmit="()=>OnValidSubmit()">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>
+<!--<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Parametre</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="@configuration" OnValidSubmit="()=>OnValidSubmit()">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />-->
+                @*<MudGrid>
+            <MudItem xs="12" sm="12" md="12"><MudTextField @bind-Value="configuration.ConfigurationCode" Label="Kod" For="()=>configuration.ConfigurationCode"></MudTextField></MudItem>
+            <MudItem xs="12" sm="6" md="6"><MudTextField @bind-Value="configuration.ConfigurationValue" Label="Değer" For="()=>configuration.ConfigurationValue"></MudTextField></MudItem>
+            <MudItem xs="12" sm="6" md="6"><MudTextField @bind-Value="configuration.ConfigurationDescription" Label="Açıklama" For="()=>configuration.ConfigurationDescription"></MudTextField></MudItem>
+        </MudGrid>*@
+            <!--</Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="Close" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>-->

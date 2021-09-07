@@ -1,0 +1,67 @@
+﻿@page "/StockUnitDefinitions"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Stok Birimleri</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewStockUnit" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="StockUnitDefinition" Data="stockUnitDefinitions"
+                      Filterable="true" PageSize="10" ShowPager="true"
+                      Hoverable="true"
+                      Responsive="true"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))">
+                <DataGridColumns>
+                    <DataGridColumn TItem="StockUnitDefinition" Field="@nameof(StockUnitDefinition.StockUnitDefinitionCode)" Caption="Birim Kodu"></DataGridColumn>
+                    <DataGridColumn TItem="StockUnitDefinition" Field="@nameof(StockUnitDefinition.StockUnitDefinitionName)" Caption="Birim Adı"></DataGridColumn>
+                    <DataGridCheckColumn TItem="StockUnitDefinition" Field="@nameof(StockUnitDefinition.IsActive)" Caption="Aktif">
+                        <DisplayTemplate>
+                            <Blazorise.Check Checked="@context.IsActive" ReadOnly="true" Disabled="true"></Blazorise.Check>
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                </DataGridColumns>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Birim Kaydı</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="stockUnitDefinition" OnValidSubmit="Save">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+                <MudGrid>
+                    <MudItem sm="12" md="12" xs="12">
+                        <MudSelect Margin="Margin.Dense" Label="Durum" T="bool" @bind-Value="stockUnitDefinition.IsActive">
+                            <MudSelectItem T="bool" Value="true">Aktif</MudSelectItem>
+                            <MudSelectItem T="bool" Value="false">Pasif</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem md="12" sm="12" xs="12"><MudTextField @bind-Value="stockUnitDefinition.StockUnitDefinitionCode" Label="Birim Kodu" For="()=>stockUnitDefinition.StockUnitDefinitionCode"></MudTextField></MudItem>
+                    <MudItem md="12" sm="12" xs="12"><MudTextField @bind-Value="stockUnitDefinition.StockUnitDefinitionName" Label="Birim Adı" For="()=>stockUnitDefinition.StockUnitDefinitionName"></MudTextField></MudItem>
+                </MudGrid>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="CloseModel" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                    @if (stockUnitDefinition.StockUnitDefinitionId != Guid.Empty)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                    }
+                    @*<MudButton Variant="Variant.Filled" @onclick="CloseModel" Class="float-left" Color="MudBlazor.Color.Warning" EndIcon="@MudBlazor.Icons.Material.Filled.Close">Kapat</MudButton>
+                    <MudButton Variant="Variant.Filled" ButtonType="MudBlazor.ButtonType.Submit" Class="float-right" Color="MudBlazor.Color.Success" EndIcon="@MudBlazor.Icons.Material.Filled.Save">Kaydet</MudButton>
+                    @if (stockUnitDefinition.StockUnitDefinitionId != Guid.Empty)
+                    {
+                        <MudButton Variant="Variant.Filled" @onclick="Delete" Class="float-right mr-1" Color="MudBlazor.Color.Error" EndIcon="@MudBlazor.Icons.Material.Filled.Delete">Sil</MudButton>
+                    }*@
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

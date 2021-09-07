@@ -1,0 +1,26 @@
+﻿
+@if (MenuItems != null)
+{
+    @foreach (var item in MenuItems)
+    {
+        if (item.Menus.Count > 0)
+        {
+            <SideBarTreeView Icon="@item.Icon">
+                <Title>@item.MenuName</Title>
+                <Items>
+                    <SideBarTreeViewCustom MenuItems="item.Menus"></SideBarTreeViewCustom>
+                </Items>
+            </SideBarTreeView>
+        }
+        else if (item.MainMenuId != null || (item.MainMenuId == null && item.Menus == null))
+        {
+            <SideBarMenuItem Link="@item.Url" Icon="@item.Icon">@item.MenuName</SideBarMenuItem>
+        }
+    }
+
+}
+
+@code {
+    [Parameter]
+    public HashSet<Menu> MenuItems { get; set; }
+}

@@ -1,0 +1,61 @@
+﻿@page "/StockBrands"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Stok Markaları</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewStockBrand" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="StockBrand" Data="stockBrands"
+                      Filterable="true" PageSize="10" ShowPager="true"
+                      Hoverable="true"
+                      Responsive="true"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))">
+                <DataGridColumns>
+                    <DataGridColumn TItem="StockBrand" Field="@nameof(StockBrand.StockBrandCode)" Caption="Marka Kodu"></DataGridColumn>
+                    <DataGridColumn TItem="StockBrand" Field="@nameof(StockBrand.StockBrandName)" Caption="Marka Adı"></DataGridColumn>
+                    <DataGridCheckColumn TItem="StockBrand" Field="@nameof(StockBrand.IsActive)" Caption="Aktif">
+                        <DisplayTemplate>
+                            <Blazorise.Check Checked="@context.IsActive" ReadOnly="true" Disabled="true"></Blazorise.Check>
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                </DataGridColumns>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Stok Marka Kaydı</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="stockBrand" OnValidSubmit="Save">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+                <MudGrid>
+                    <MudItem sm="12" md="12" xs="12">
+                        <MudSelect Margin="Margin.Dense" Label="Durum" T="bool" @bind-Value="stockBrand.IsActive">
+                            <MudSelectItem T="bool" Value="true">Aktif</MudSelectItem>
+                            <MudSelectItem T="bool" Value="false">Pasif</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem md="12" sm="12" xs="12"><MudTextField @bind-Value="stockBrand.StockBrandCode" Label="Marka Kodu" For="()=>stockBrand.StockBrandCode"></MudTextField></MudItem>
+                    <MudItem md="12" sm="12" xs="12"><MudTextField @bind-Value="stockBrand.StockBrandName" Label="Marka Adı" For="()=>stockBrand.StockBrandName"></MudTextField></MudItem>
+                </MudGrid>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="CloseModel" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                    @if (stockBrand.StockBrandId != Guid.Empty)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                    }
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="21.1.4.0" Ref="0" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v21.1, Version=21.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="SalesOffer" PageWidth="850" PageHeight="1100" Version="21.1" Font="Arial, 9.75pt">
+  <Extensions>
+    <Item1 Ref="1" Key="VSReportExtInfo" Value=".vsrepx" />
+  </Extensions>
+  <Bands>
+    <Item1 Ref="2" ControlType="TopMarginBand" Name="TopMargin" />
+    <Item2 Ref="3" ControlType="BottomMarginBand" Name="BottomMargin" />
+    <Item3 Ref="4" ControlType="DetailBand" Name="Detail">
+      <Controls>
+        <Item1 Ref="5" ControlType="XRLabel" Name="label1" Multiline="true" Text="label1" SizeF="358.3333,36.54165" LocationFloat="120.833336,20.7916584" Padding="2,2,0,0,96" />
+      </Controls>
+    </Item3>
+  </Bands>
+</XtraReportsLayoutSerializer>

@@ -1,0 +1,134 @@
+﻿@page "/Activity/{ActivityId:guid}"
+@*@inherits ActivityPageBase*@
+@*@page "/Activity"*@
+<MudCard>
+    @if (mudDialog == null)
+    {
+        <MudCardHeader>
+            <CardHeaderContent>
+                @{
+                    if (activity.ActivityId == Guid.Empty)
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                            Aktivite Kaydı
+                        </MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                            Aktivite Düzeltme
+                        </MudText>
+                    }
+                }
+            </CardHeaderContent>
+        </MudCardHeader>
+    }
+    <EditForm Model="activity" OnValidSubmit="Save">
+        <MudCardContent>
+            <FluentValidationValidator @ref="_fluentValidationValidator" />
+            <MudSelect T="Guid?" @bind-Value="activity.ActivityTypeId" Label="Aktivite" Margin="MudBlazor.Margin.Dense" For="()=>activity.ActivityTypeId">
+                @if (activityTypes != null)
+                {
+                    foreach (var item in activityTypes)
+                    {
+                        <MudSelectItem T="Guid?" Value="@item.ActivityTypeId">@item.ActivityTypeName</MudSelectItem>
+                    }
+                }
+            </MudSelect>
+            @if (SelectionActiveType != null && SelectionActiveType.IsEmployeeExist != 0)
+            {
+                if (IsEmployeesActivities)
+                {
+                    <MudSelect T="Guid?" Label="Personel" Margin="MudBlazor.Margin.Dense" MultiSelection="true" @bind-SelectedValues="selectedEmployees"
+                               MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))">
+                        @if (employees != null)
+                        {
+                            foreach (var item in employees)
+                            {
+                                <MudSelectItem T="Guid?" Value="@item.EmployeeId">@item.Name @item.Surname</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+                }
+                else
+                {
+                    <MudSelect T="Guid?" Label="Personel" Margin="MudBlazor.Margin.Dense" @bind-Value="@activity.EmployeeId" For="()=>activity.EmployeeId">
+                        @if (employees != null)
+                        {
+                            foreach (var item in employees)
+                            {
+                                <MudSelectItem T="Guid?" Value="@item.EmployeeId">@item.Name @item.Surname</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+                }
+                if (ActivityId == Guid.Empty)
+                {
+                    <MudBlazor.MudCheckBox Label="Her personel için ayrı aktivite oluştur" T="bool" Checked="IsEmployeesActivities" Margin="MudBlazor.Margin.Dense" CheckedChanged="IsEmployeesActivitiesChange"></MudBlazor.MudCheckBox>
+                }
+            }
+            @if (SelectionActiveType != null && SelectionActiveType.IsCustomerExist != 0)
+            {
+                <MudSelect T="Guid?" Value="activity.CustomerId" Label="Müşteri" ValueChanged="CustomerSelectionChange" Margin="MudBlazor.Margin.Dense" For="()=>activity.CustomerId">
+                    @if (customers != null)
+                    {
+                        foreach (var item in customers)
+                        {
+                            <MudSelectItem T="Guid?" Value="@item.CustomerId">@item.CustomerName</MudSelectItem>
+                        }
+                    }
+                </MudSelect>
+            }
+            @if (SelectionActiveType != null && SelectionActiveType.IsContactExist != 0)
+            {
+                <MudSelect T="Guid?" @bind-Value="activity.ContactId" Label="Yetkili" Margin="MudBlazor.Margin.Dense" For="()=>activity.ContactId">
+                    @if (contacts != null)
+                    {
+                        foreach (var item in contacts)
+                        {
+                            <MudSelectItem T="Guid?" Value="@item.ContactId">@item.Name @item.SureName</MudSelectItem>
+                        }
+                    }
+                </MudSelect>
+            }
+            @if (SelectionActiveType != null && SelectionActiveType.IsProjectExist != 0)
+            {
+                <MudSelect T="Guid?" @bind-Value="activity.ProjectId" Label="Proje" Margin="MudBlazor.Margin.Dense" For="()=>activity.ProjectId">
+                    @if (projects != null)
+                    {
+                        foreach (var item in projects)
+                        {
+                            <MudSelectItem T="Guid?" Value="@item.ProjectId">@item.ProjectNumber @item.ProjectTitle</MudSelectItem>
+                        }
+                    }
+                </MudSelect>
+            }
+            <MudGrid>
+                <MudItem xs="12" sm="6" md="4"><MudDatePicker @bind-Date="activity.StartDate" For="()=>activity.StartDate" DisableToolbar="true" Label="Başlama Tarihi" Margin="MudBlazor.Margin.Dense" PickerVariant="PickerVariant.Dialog"></MudDatePicker></MudItem>
+                <MudItem xs="12" sm="6" md="4"><MudDatePicker @bind-Date="activity.FinishDate" For="()=>activity.FinishDate" DisableToolbar="true" Label="Bitiş Tarihi" Margin="MudBlazor.Margin.Dense" PickerVariant="PickerVariant.Dialog"></MudDatePicker></MudItem>
+                <MudItem xs="12" sm="6" md="4"><MudDatePicker @bind-Date="activity.NextActivityDate" For="()=>activity.NextActivityDate" DisableToolbar="true" Label="Sonraki Aktivite Tarihi" Margin="MudBlazor.Margin.Dense" PickerVariant="PickerVariant.Dialog"></MudDatePicker></MudItem>
+            </MudGrid>
+            <MudTextField @bind-Value="activity.Subject" Label="Konu" Margin="MudBlazor.Margin.Dense" For="()=>activity.Subject"></MudTextField>
+            <MudTextField Lines="5" @bind-Value="activity.Explanation" Label="Açıklama" Margin="MudBlazor.Margin.Dense" For="()=>activity.Explanation"></MudTextField>
+            @if (SelectionActiveType != null && SelectionActiveType.IsLocationExist != 0)
+            {
+                <MudTextField @bind-Value="activity.Location" Label="Lokasyon" Margin="MudBlazor.Margin.Dense" For="()=>activity.Location"></MudTextField>
+            }
+        </MudCardContent>
+        <MudCardActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="MudBlazor.Color.Error" @onclick="Cancel" Class="mr-auto p-2" />
+            @if (ActivityId != Guid.Empty)
+            {
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="p-2" />
+            }
+            <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="p-2" ButtonType="MudBlazor.ButtonType.Submit" />
+            @*<MudButton @onclick="Close" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Warning" Size="MudBlazor.Size.Small">Kapat</MudButton>
+                <MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Size="MudBlazor.Size.Small" Class="@SaveButtonClass">Kaydet</MudButton>*@
+        </MudCardActions>
+    </EditForm>
+</MudCard>
+@code
+{
+}

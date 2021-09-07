@@ -1,0 +1,27 @@
+﻿@page "/MilestoneTypes"
+
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                Proje Süreç Türleri
+            </MudText>
+        </CardHeaderContent>
+        <CardHeaderActions><MudIconButton Icon="@MudBlazor.Icons.Filled.Add" Color="@MudBlazor.Color.Success" OnClick="NewMilestoneType"></MudIconButton></CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="ProjectMilestoneType" Sortable="true" Filterable="true" Responsive="true" Data="projectMilestoneTypes" RowClicked="@(e=>RowClick(e.Item))"
+                  Class="table table-striped table-bordered table-hover">
+            <DataGridColumn Field="@nameof(ProjectMilestoneType.ProjectMilestoneTypeName)" TItem="ProjectMilestoneType" Caption="Adı"></DataGridColumn>
+            <DataGridCheckColumn Field="@nameof(ProjectMilestoneType.IsActive)" TItem="ProjectMilestoneType" Caption="Aktif" TextAlignment="Blazorise.TextAlignment.Center">
+                <DisplayTemplate>
+                    <Blazorise.Check TValue="bool" Checked="context.IsActive" Disabled="true" ReadOnly="true" />
+                </DisplayTemplate>
+            </DataGridCheckColumn>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>
+
+@code {
+}

@@ -1,0 +1,55 @@
+﻿@page "/AddEditExpenseCards/{ExpenseCardId:guid}"
+<MudCard>
+    @if (_mudDialog == null)
+    {
+        <MudCardHeader>
+            <CardHeaderContent>
+                @{
+                    if (ExpenseCardId == Guid.Empty)
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                            Masraf Kaydı
+                        </MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                            Masraf Düzeltme
+                        </MudText>
+                    }
+                }
+            </CardHeaderContent>
+            <CardHeaderActions>
+            </CardHeaderActions>
+        </MudCardHeader>
+    }
+    <EditForm Model="expenseCard" OnValidSubmit="OnValidSubmit">
+        <FluentValidationValidator @ref="_fluentValidationValidator" />
+        <MudCardContent>
+            <MudGrid>
+                <MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="Masraf Kod" @bind-Text="expenseCard.ExpenseCardCode" T="string" For="()=>expenseCard.ExpenseCardCode"></MudTextField>
+                </MudItem>
+                <MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="Masraf Adı" @bind-Text="expenseCard.ExpenseCardName" T="string" For="()=>expenseCard.ExpenseCardName"></MudTextField>
+                </MudItem>
+                <MudItem md="12" sm="12" xs="12">
+                    <MudTextField Label="Masraf Açıklaması" @bind-Text="expenseCard.Description" T="string" For="()=>expenseCard.Description"></MudTextField>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+        <MudCardActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="Cancel" Class="mr-auto p-2" />
+            @if (expenseCard.ExpenseCardId != Guid.Empty)
+            {
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="p-2" />
+            }
+            <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="p-2" ButtonType="MudBlazor.ButtonType.Submit" />
+        </MudCardActions>
+    </EditForm>
+</MudCard>
+@code{
+
+}

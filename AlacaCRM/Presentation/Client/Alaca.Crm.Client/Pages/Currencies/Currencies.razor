@@ -1,0 +1,51 @@
+﻿@page "/Currencies"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Para Birimleri</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="New" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="Currency" Data="lstData" Filterable="true" ShowPager="true" PageSize="10"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>Get(e.Item.CurrencyId))">
+                <ChildContent>
+                    <DataGridColumn TItem="Currency" Field="@nameof(Currency.CurrencyCode)" Caption="Para Birimi Kod" Editable="true" />
+                    <DataGridColumn TItem="Currency" Field="@nameof(Currency.CurrencyName)" Caption="Para Birimi Adı" Editable="true" />
+                    <DataGridColumn TItem="Currency" Field="@nameof(Currency.DisplayOrder)" Caption="Görüntüleme Sırası" Editable="true" />
+                    <DataGridColumn TItem="Currency" Field="@nameof(Currency.AmountDecimalPlaces)" Caption="Ondalık Basamak" Editable="true" />
+                </ChildContent>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Para Birimi</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="@data" OnValidSubmit="()=>OnValidSubmit()">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+                <MudGrid>
+                    <MudItem sm="12" md="12" xs="12"><MudTextField Label="Para Birimi Kodu" Margin="Margin.Dense" @bind-Value="data.CurrencyCode" For="()=>data.CurrencyCode"></MudTextField></MudItem>
+                    <MudItem sm="12" md="12" xs="12"><MudTextField Label="Para Birimi Adı" Margin="Margin.Dense" @bind-Value="data.CurrencyName" For="()=>data.CurrencyName"></MudTextField></MudItem>
+                    <MudItem sm="12" md="12" xs="12"><MudNumericField @bind-Value="data.DisplayOrder" Label="Gösterim Sırası" Margin="Margin.Dense" For="()=>data.DisplayOrder"></MudNumericField></MudItem>
+                    <MudItem sm="12" md="12" xs="12"><MudNumericField @bind-Value="data.AmountDecimalPlaces" Label="Ondalık Basamak" Margin="Margin.Dense" For="()=>data.AmountDecimalPlaces"></MudNumericField></MudItem>
+                </MudGrid>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="@(()=>modalRef.Hide())" Class="float-left" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                    @if (data.CurrencyId != Guid.Empty)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                    }
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

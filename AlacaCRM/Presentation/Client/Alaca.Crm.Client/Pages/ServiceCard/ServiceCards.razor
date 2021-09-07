@@ -1,0 +1,23 @@
+﻿@page "/ServiceCards"
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>HİZMET KARTLARI</CardHeaderContent>
+        <CardHeaderActions>
+            <!--<MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewServiceCard" Class="ml-auto" />-->
+            <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewServiceCard" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="ServiceCard" Data="serviceCards"
+                  Filterable="true" PageSize="10" ShowPager="true"
+                  Hoverable="true"
+                  Responsive="true"
+                  Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))" SortMode="DataGridSortMode.Single">
+            <DataGridColumns>
+                <DataGridColumn TItem="ServiceCard" Field="@nameof(ServiceCard.ServiceCardCode)" Caption="Hizmet Kodu"></DataGridColumn>
+                <DataGridColumn TItem="ServiceCard" Field="@nameof(ServiceCard.ServiceCardName)" Caption="Hizmet Adı"></DataGridColumn>
+                <DataGridColumn TItem="ServiceCard" Field="@nameof(ServiceCard.Description)" Caption="Hizmet Açıklaması"></DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>

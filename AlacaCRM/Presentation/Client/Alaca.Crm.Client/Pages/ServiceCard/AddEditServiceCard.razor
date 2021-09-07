@@ -1,0 +1,61 @@
+﻿@page "/AddEditServiceCards/{ServiceCardId:guid}"
+<MudCard>
+    @if (_mudDialog == null)
+    {
+        <MudCardHeader>
+            <CardHeaderContent>
+                @{
+                    if (ServiceCardId == Guid.Empty)
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                            Hizmet Kaydı
+                        </MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                            Hizmet Düzeltme
+                        </MudText>
+                    }
+                }
+            </CardHeaderContent>
+            <CardHeaderActions>
+            </CardHeaderActions>
+        </MudCardHeader>
+    }
+    <EditForm Model="serviceCard" OnValidSubmit="OnValidSubmit">
+        <FluentValidationValidator @ref="_fluentValidationValidator" />
+        <MudCardContent>
+            <MudGrid>
+                <MudItem sm="12" md="12" xs="12">
+                    <MudSelect Margin="Margin.Dense" Label="Durum" T="bool" @bind-Value="serviceCard.IsActive">
+                        <MudSelectItem T="bool" Value="true">Aktif</MudSelectItem>
+                        <MudSelectItem T="bool" Value="false">Pasif</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem md="12" sm="12" xs="12">
+                    <MudTextField Label="Hizmet Kod" @bind-Text="serviceCard.ServiceCardCode" T="string" For="()=>serviceCard.ServiceCardCode"></MudTextField>
+                </MudItem>
+                <MudItem md="12" sm="12" xs="12">
+                    <MudTextField Label="Hizmet Adı" @bind-Text="serviceCard.ServiceCardName" T="string" For="()=>serviceCard.ServiceCardName"></MudTextField>
+                </MudItem>
+                <MudItem md="12" sm="12" xs="12">
+                    <MudTextField Label="Hizmet Açıklaması" @bind-Text="serviceCard.Description" T="string" For="()=>serviceCard.Description"></MudTextField>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+        <MudCardActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="Cancel" Class="mr-auto p-2" />
+            @if (serviceCard.ServiceCardId != Guid.Empty)
+            {
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="p-2" />
+            }
+            <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="p-2" ButtonType="MudBlazor.ButtonType.Submit" />
+        </MudCardActions>
+    </EditForm>
+</MudCard>
+@code{
+
+}

@@ -1,0 +1,31 @@
+﻿@page "/Projects"
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">
+                PROJELER
+            </MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewProject" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="viewProject" Data="projects"
+                  Filterable="true" PageSize="10" ShowPager="true"
+                  Hoverable="true"
+                  Responsive="true"
+                  Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))" SortMode="DataGridSortMode.Single">
+            <DataGridColumns>
+                <DataGridColumn TItem="viewProject" Field="@nameof(viewProject.ProjectNumber)" Caption="Proje No"></DataGridColumn>
+                <DataGridDateColumn DisplayFormat="{0:dd.MM.yyyy}" TItem="viewProject" Field="@nameof(viewProject.ProjectDate)" Caption="Teklif Tarihi" Direction="Blazorise.SortDirection.Descending"></DataGridDateColumn>
+                <DataGridColumn TItem="viewProject" Field="@nameof(viewProject.CustomerName)" Caption="Müşteri Adı"></DataGridColumn>
+                <DataGridColumn TItem="viewProject" Field="@nameof(viewProject.CustomerContactName)" Caption="Müşteri Yetkilisi"></DataGridColumn>
+                <DataGridColumn TItem="viewProject" Field="@nameof(viewProject.AssignedToName)" Caption="Temsilci"></DataGridColumn>
+                <DataGridColumn TItem="viewProject" Field="@nameof(viewProject.PaymentMethodName)" Caption="Ödeme Şekli"></DataGridColumn>
+                <DataGridColumn TItem="viewProject" Field="@nameof(viewProject.CurrencyName)" Caption="Para Birimi"></DataGridColumn>
+                <DataGridColumn TItem="viewProject" Field="@nameof(viewProject.ProjectStatuName)" Caption="Durum"></DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>

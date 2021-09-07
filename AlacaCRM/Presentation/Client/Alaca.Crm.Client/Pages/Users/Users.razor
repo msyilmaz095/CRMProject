@@ -1,0 +1,26 @@
+﻿@page "/users"
+@inherits UsersBase
+<!-- Main content -->
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Kullanıcılar</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewUser" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="viewUser" Data="users"
+                      Responsive="true" Filterable="true" ShowPager="true" PageSize="10" Class="table table-bordered table-striped"
+                      RowClicked="@(e=>EditUser(e.Item.UserId))">
+                <ChildContent>
+                    <DataGridColumn TItem="viewUser" Field="@nameof(viewUser.UserName)" Caption="Kullanıcı Adı" Editable="true" />
+                    <DataGridColumn TItem="viewUser" Field="@nameof(viewUser.Email)" Caption="Email" Editable="true" />
+                    <DataGridColumn TItem="viewUser" Field="@nameof(viewUser.MobilePhone)" Caption="Cep Telefonu No" Editable="true" />
+                    <DataGridColumn TItem="viewUser" Field="@nameof(viewUser.CompanyName)" Caption="Firma" Editable="true" />
+                    <DataGridColumn TItem="viewUser" Field="@nameof(viewUser.UserRoleName)" Caption="Kullanıcı Rolü" Editable="true" />
+                </ChildContent>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>

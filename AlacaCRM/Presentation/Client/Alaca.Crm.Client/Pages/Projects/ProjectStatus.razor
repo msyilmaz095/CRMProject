@@ -1,0 +1,26 @@
+﻿@page "/ProjectStatus"
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                Proje Durumları
+            </MudText>
+        </CardHeaderContent>
+        <CardHeaderActions><MudIconButton Icon="@MudBlazor.Icons.Filled.Add" Color="@MudBlazor.Color.Success" OnClick="NewProjectStatu"></MudIconButton></CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="ProjectStatu" Sortable="true" Filterable="true" Responsive="true" Data="projectStatus" RowClicked="@(e=>RowClick(e.Item))"
+                  Class="table table-striped table-bordered table-hover">
+            <DataGridColumn Field="@nameof(ProjectStatu.ProjectStatuName)" TItem="ProjectStatu" Caption="Adı"></DataGridColumn>
+            <DataGridCheckColumn Field="@nameof(ProjectStatu.IsActive)" TItem="ProjectStatu" Caption="Aktif" TextAlignment="Blazorise.TextAlignment.Center">
+                <DisplayTemplate>
+                    <Blazorise.Check TValue="bool" Checked="context.IsActive" Disabled="true" ReadOnly="true" />
+                </DisplayTemplate>
+            </DataGridCheckColumn>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>
+
+@code {
+}

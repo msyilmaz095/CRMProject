@@ -1,0 +1,52 @@
+﻿@page "/contactstatu"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>İletişim Durumları</CardTitle>
+            <div class="card-tools">
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewContactStatu" Class="ml-auto" />
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="ContactStatu" Data="contactStatus" Filterable="true" ShowPager="true" PageSize="10"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>GetContactType(e.Item.ContactStatuId))">
+                <ChildContent>
+                    <DataGridColumn TItem="ContactStatu" Field="@nameof(ContactStatu.ContactStatuName)" Caption="Yetkili Durum" Editable="true" />
+                    <DataGridCheckColumn TItem="ContactStatu" Field="@nameof(ContactStatu.IsActive)" Caption="Aktif" Editable="true">
+                        <DisplayTemplate>
+                            <Blazorise.Check TValue="bool" Checked="context.IsActive" Disabled="true" ReadOnly="true" />
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                </ChildContent>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>İletişim Durum</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="@contactStatu" OnValidSubmit="()=>OnValidSubmit()">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator @ref="_fluentValidationValidator" />
+                <MudSelect Margin="Margin.Dense" Label="Durum" T="bool" @bind-Value="contactStatu.IsActive">
+                    <MudSelectItem T="bool" Value="true">Aktif</MudSelectItem>
+                    <MudSelectItem T="bool" Value="false">Pasif</MudSelectItem>
+                </MudSelect>
+                <MudTextField @bind-Value="contactStatu.ContactStatuName" Label="Yetkili Durum" For="()=>contactStatu.ContactStatuName"></MudTextField>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="@(()=>modalRef.Hide())" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                    @if (contactStatu.ContactStatuId != Guid.Empty)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                    }
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

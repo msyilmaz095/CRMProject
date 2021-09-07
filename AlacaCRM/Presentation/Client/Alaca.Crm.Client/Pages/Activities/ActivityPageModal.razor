@@ -1,0 +1,9 @@
+﻿@inject Radzen.DialogService _rdialogService
+<ActivityPage ActivityId="ActivityId" OnShowActivityPageChange="ChangeShowActivityPage"></ActivityPage>
+@code{
+    [Parameter] public Guid ActivityId { get; set; }
+    void ChangeShowActivityPage(bool showActivityPage)
+    {
+        _rdialogService.Close();
+    }
+}

@@ -1,0 +1,182 @@
+﻿@page "/CustomerGeneral"
+@inject ICustomerService _customerService
+@inject ISectorService _sectorService
+@inject ICustomerGroupService _customerGroupService
+@inject ICustomerRelationService _customerRelationService
+
+<EditForm Model="data" OnValidSubmit="@Kaydet">
+    <FluentValidationValidator />
+    <div class="form-group row">
+        <div class="col-md-8">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderAvatar>
+                        <MudAvatar Color="MudBlazor.Color.Secondary">Müşteri Bilgileri</MudAvatar>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">
+                            Müşteri Bilgileri
+                        </MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid Spacing="1">
+                        <MudItem sm="12" md="12" lg="12"><MudTextField @bind-Value="data.CustomerCode" Label="Müşteri Kodu" For="()=>data.CustomerCode"></MudTextField></MudItem>
+                        <MudItem sm="12" md="12" lg="12"><MudTextField @bind-Value="data.CustomerName" Label="Müşteri Adı" For="()=>data.CustomerName"></MudTextField></MudItem>
+                        <MudItem sm="12" md="12" lg="12"><MudTextField @bind-Value="data.CustomerTitle" Label="Müşteri Kısa Adı" For="()=>data.CustomerTitle"></MudTextField></MudItem>
+                        <MudItem sm="12" md="6" lg="6"><MudTextField @bind-Value="data.TaxAdministration" Label="Vergi Dairesi" For="()=>data.TaxAdministration"></MudTextField></MudItem>
+                        <MudItem sm="12" md="6" lg="6"><MudTextField @bind-Value="data.TaxNumber" Label="Vergi Numarası" For="()=>data.TaxNumber"></MudTextField></MudItem>
+                        <MudItem sm="12" md="6" lg="6"><MudTextField @bind-Value="data.Phone1" Label="Tel-1" For="()=>data.Phone1"></MudTextField></MudItem>
+                        <MudItem sm="12" md="6" lg="6"><MudTextField @bind-Value="data.Phone2" Label="Tel-2" For="()=>data.Phone2"></MudTextField></MudItem>
+                        <MudItem sm="12" md="4" lg="4"><MudTextField @bind-Value="data.Fax" Label="Fax" For="()=>data.Fax"></MudTextField></MudItem>
+                        <MudItem sm="12" md="4" lg="4"><MudTextField @bind-Value="data.Email" Label="Email" For="()=>data.Email"></MudTextField></MudItem>
+                        <MudItem sm="12" md="4" lg="4"><MudTextField @bind-Value="data.WebSite" Label="Web Site" For="()=>data.WebSite"></MudTextField></MudItem>
+                        <MudItem sm="12" md="6" lg="6"><MudTextField @bind-Value="data.IbanNo1" Label="Iban No-1" For="()=>data.IbanNo1"></MudTextField></MudItem>
+                        <MudItem sm="12" md="6" lg="6"><MudTextField @bind-Value="data.IbanNo2" Label="Iban No-2" For="()=>data.IbanNo2"></MudTextField></MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </div>
+        <div class="col-md-4">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderAvatar>
+                        <MudAvatar Color="MudBlazor.Color.Secondary">Detay Bilgileri</MudAvatar>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">
+                            Detay Bilgileri
+                        </MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid Spacing="1">
+                        <MudItem sm="12" md="12" lg="12"><MudTextField @bind-Value="data.CustomField1" Label="Özel Kod-1" For="()=>data.CustomField1"></MudTextField></MudItem>
+                        <MudItem sm="12" md="12" lg="12"><MudTextField @bind-Value="data.CustomField2" Label="Özel Kod-2" For="()=>data.CustomField2"></MudTextField></MudItem>
+                        <MudItem sm="12" md="12" lg="12"><MudTextField @bind-Value="data.CustomField3" Label="Özel Kod-3" For="()=>data.CustomField3"></MudTextField></MudItem>
+                        <MudItem sm="12" md="12" lg="12">
+                            <MudSelect @bind-Value="data.SectorId" Label="Sektör" T="Guid?" For="()=>data.SectorId">
+                                <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                                @if (lstSector != null)
+                                {
+                                    @foreach (var item in lstSector)
+                                    {
+                                        <MudSelectItem T="Guid?" Value="@item.SectorId">@item.SectorName</MudSelectItem>
+                                    }
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem sm="12" md="12" lg="12">
+                            <MudSelect @bind-Value="data.CustomerRelationId" Label="İlişki Türü" T="Guid?" For="()=>data.CustomerRelationId">
+                                <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                                @if (customerRelations != null)
+                                {
+                                    @foreach (var item in customerRelations)
+                                    {
+                                        <MudSelectItem T="Guid?" Value="@item.CustomerRelationId">@item.CustomerRelationName</MudSelectItem>
+                                    }
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem sm="12" md="12" lg="12">
+                            <MudSelect @bind-Value="data.CustomerGroupId" Label="Müşteri Grubu" T="Guid?" For="()=>data.CustomerGroupId">
+                                <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                                @if (customerGroups != null)
+                                {
+                                    @foreach (var item in customerGroups)
+                                    {
+                                        <MudSelectItem T="Guid?" Value="@item.CustomerGroupId">@item.CustomerGroupName</MudSelectItem>
+                                    }
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem sm="12" md="12" lg="12">
+                            <MudSelect @bind-Value="data.AssignedTo" Label="Sorumlu Personel" T="Guid?" For="()=>data.AssignedTo">
+                                <MudSelectItem T="Guid?" Value="null">-</MudSelectItem>
+                                @if (employees != null)
+                                {
+                                    @foreach (var item in employees)
+                                    {
+                                        <MudSelectItem T="Guid?" Value="@item.EmployeeId">@item.Name @item.Surname</MudSelectItem>
+                                    }
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem sm="12" md="12" lg="12">
+                            <MudSelect @bind-Value="data.IsCandidate" Label="Aday Müşteri" T="bool" For="()=>data.IsCandidate">
+                                <MudSelectItem T="bool" Value="false">Hayır</MudSelectItem>
+                                <MudSelectItem T="bool" Value="true">Evet</MudSelectItem>
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem sm="12" md="12" lg="12"></MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </div>
+    </div>
+    <MudGrid>
+        <MudItem sm="12" md="12" lg="12">
+            <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="Close" />
+            <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+            @if (data.CustomerId != Guid.Empty)
+            {
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+            }
+            @*<MudButton Variant="Variant.Filled" ButtonType="@MudBlazor.ButtonType.Button" EndIcon="@MudBlazor.Icons.Material.Filled.Close" Color="MudBlazor.Color.Warning" OnClick="Close" Size="MudBlazor.Size.Small">Kapat</MudButton>
+                <MudButton Variant="Variant.Filled" EndIcon="@MudBlazor.Icons.Material.Filled.Save" Class="float-right" Color="MudBlazor.Color.Success" ButtonType="MudBlazor.ButtonType.Submit" Size="MudBlazor.Size.Small">Kaydet</MudButton>
+                <MudButton Variant="Variant.Filled" EndIcon="@MudBlazor.Icons.Material.Filled.Save" Class="float-right" Color="MudBlazor.Color.Error" OnClick="Delete" Size="MudBlazor.Size.Small">Sil</MudButton>*@
+        </MudItem>
+    </MudGrid>
+</EditForm>
+@code {
+    Sector[] lstSector;
+    CustomerRelation[] customerRelations;
+    CustomerGroup[] customerGroups;
+    Employee[] employees;
+    Customer data = new Customer();
+    [Inject] public IEmployeeService _employeeService { get; set; }
+    [Parameter] public Guid CustomerId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (CustomerId != Guid.Empty)
+            data = (await _customerService.GetById(CustomerId)).Data;
+        lstSector = (await _sectorService.GetAll()).Data;
+        customerGroups = (await _customerGroupService.GetAll()).Data;
+        customerRelations = (await _customerRelationService.GetAll()).Data;
+        employees = (await _employeeService.GetAll()).Data;
+    }
+
+    async void Kaydet()
+    {
+        IResult result;
+        if (data.CustomerId == Guid.Empty)
+        {
+            result = await _customerService.Insert(data);
+            _navigationManager.NavigateTo("/customer/" + result.RecordId);
+        }
+        else
+        {
+            result = await _customerService.Update(data);
+        }
+        if (result.Success)
+            _snackBar.Add("Müşteri Kaydı Başarılı.", Severity.Success);
+        else
+            _snackBar.Add("Müşteri Kaydı Başarısız.", Severity.Error);
+    }
+
+    void Close()
+    {
+        _navigationManager.NavigateTo("/customers");
+    }
+
+    async void Delete()
+    {
+        var result = await _customerService.Delete(data.CustomerId);
+        if (result.Success)
+        {
+            _snackBar.Add("Müşteri Kaydı Silindi.", Severity.Success);
+            _navigationManager.NavigateTo("/customers");
+        }
+    }
+}

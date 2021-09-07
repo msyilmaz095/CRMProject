@@ -1,0 +1,29 @@
+﻿<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">
+                TAŞERONLAR
+            </MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Success" @onclick="NewSubContrator" Class="ml-auto" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGrid TItem="SubContratorTeam" Data="subContratorTeams"
+                  Filterable="true" PageSize="10" ShowPager="true"
+                  Hoverable="true"
+                  Responsive="true"
+                  Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))">
+            <DataGridColumns>
+                <DataGridColumn TItem="SubContratorTeam" Field="@nameof(SubContratorTeam.CityId)" Caption="Şehir">
+                    <DisplayTemplate>
+                        @(cities?.FirstOrDefault(p=>p.CityId==context.CityId)?.CityName)
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="SubContratorTeam" Field="@nameof(SubContratorTeam.SubcontratorTeamName)" Caption="Takım Adı"></DataGridColumn>
+                <DataGridColumn TItem="SubContratorTeam" Field="@nameof(SubContratorTeam.Description)" Caption="Açıklama"></DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </MudCardContent>
+</MudCard>

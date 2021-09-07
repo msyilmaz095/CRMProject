@@ -1,0 +1,17 @@
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\bin\Release\net5.0\Alaca.Crm.Client.Service.deps.json
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\bin\Release\net5.0\Alaca.Crm.Client.Service.dll
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\bin\Release\net5.0\ref\Alaca.Crm.Client.Service.dll
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\bin\Release\net5.0\Alaca.Crm.Client.Service.pdb
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\bin\Release\net5.0\Alaca.Core.dll
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\bin\Release\net5.0\Alaca.Entities.dll
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\bin\Release\net5.0\Alaca.Core.pdb
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\bin\Release\net5.0\Alaca.Entities.pdb
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\obj\Release\net5.0\Alaca.Crm.Client.Service.csprojAssemblyReference.cache
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\obj\Release\net5.0\Alaca.Crm.Client.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\obj\Release\net5.0\Alaca.Crm.Client.Service.AssemblyInfoInputs.cache
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\obj\Release\net5.0\Alaca.Crm.Client.Service.AssemblyInfo.cs
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\obj\Release\net5.0\Alaca.Crm.Client.Service.csproj.CoreCompileInputs.cache
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\obj\Release\net5.0\Alaca.Crm.Client.Service.csproj.CopyComplete
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\obj\Release\net5.0\Alaca.Crm.Client.Service.dll
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\obj\Release\net5.0\ref\Alaca.Crm.Client.Service.dll
+D:\Alaca\AlacaCRM\Presentation\Client\Alaca.Crm.Client.Service\obj\Release\net5.0\Alaca.Crm.Client.Service.pdb

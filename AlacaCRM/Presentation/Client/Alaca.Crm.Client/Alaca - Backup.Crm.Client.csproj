@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>    
+    <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Blazored.FluentValidation" Version="2.0.1" />
+    <PackageReference Include="Blazorise" Version="0.9.4.1" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="0.9.4.1" />
+    <PackageReference Include="Blazorise.Components" Version="0.9.4.1" />
+    <PackageReference Include="Blazorise.DataGrid" Version="0.9.4.1" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.4.1" />
+    <PackageReference Include="Blazorized.AdminLte" Version="0.1.8" />
+    <PackageReference Include="Blazorized.AdminLte.Content" Version="3.0.7" />
+    <PackageReference Include="Microsoft.AspNet.SignalR.Client" Version="2.4.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.8" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="5.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.8" />
+    <PackageReference Include="MudBlazor" Version="5.0.14" />
+    <PackageReference Include="Radzen.Blazor" Version="3.7.3" />
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="App.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Update="Shared\MainLayout.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Update="Shared\NavMenu.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Update="wwwroot\index.html">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Shared\LoginLayout.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Shared\LoginLayout.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Libraries\Alaca.Core\Alaca.Core.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\Alaca.Entities\Alaca.Entities.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\Alaca.Validations\Alaca.Validations.csproj" />
+    <ProjectReference Include="..\Alaca.Crm.Client.Service\Alaca.Crm.Client.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Shared\" />
+  </ItemGroup>
+
+</Project>

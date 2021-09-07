@@ -1,0 +1,76 @@
+﻿@page "/AddEditWorkTasks/{WorkTaskId:guid}"
+<MudCard>
+    @if (_mudDialog == null)
+    {
+        <MudCardHeader>
+            <CardHeaderContent>
+                @{
+                    if (WorkTaskId == Guid.Empty)
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                            İş Emri Kaydı
+                        </MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                            İş Emri Düzeltme
+                        </MudText>
+                    }
+                }
+            </CardHeaderContent>
+            <CardHeaderActions>
+            </CardHeaderActions>
+        </MudCardHeader>
+    }
+    <EditForm Model="workTask" OnValidSubmit="OnValidSubmit">
+        <FluentValidationValidator @ref="_fluentValidationValidator" />
+        <MudCardContent>
+            <MudGrid>
+                <MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="İş Emri Başlığı" @bind-Text="workTask.WorkTaskHeader" T="string" For="()=>workTask.WorkTaskHeader"></MudTextField>
+                </MudItem>
+                <!--<MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="İş Emri Tipi" @bind-Text="workTask.WorkTaskType" T="string" For="()=>workTask.WorkTaskType"></MudTextField>
+                </MudItem>-->
+                <!--<MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="İş Emri Tipi" @bind-Text="workTask.PersonToDo" T="string" For="()=>workTask.PersonToDo"></MudTextField>
+                </MudItem>-->
+                <!--<MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="Başlangıç" @bind-Text="workTask.StartDate" T="string" For="()=>workTask.StartDate"></MudTextField>
+                </MudItem>-->
+                <!--<MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="Bitiş" @bind-Text="workTask.FinishDate" T="string" For="()=>workTask.FinishDate"></MudTextField>
+                </MudItem>-->
+                <MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="Açıklama" @bind-Text="workTask.Description" T="string" For="()=>workTask.Description"></MudTextField>
+                </MudItem>
+                <MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="Evrak Seri" @bind-Text="workTask.DocumentSerial" T="string" For="()=>workTask.DocumentSerial"></MudTextField>
+                </MudItem>
+                <MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="Evrak Sıra" @bind-int="workTask.DocumentNumber" T="int" For="()=>workTask.DocumentNumber"></MudTextField>
+                </MudItem>
+                <MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="Cari" @bind-Text="workTask.CustomerId" T="string" For="()=>workTask.CustomerId"></MudTextField>
+                </MudItem>
+                <!--<MudItem md="6" sm="12" xs="12">
+                    <MudTextField Label="Aktif" @bind-Text="workTask.IsActive" T="string" For="()=>workTask.IsActive"></MudTextField>
+                </MudItem>-->
+            </MudGrid>
+        </MudCardContent>
+        <MudCardActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="Cancel" Class="mr-auto p-2" />
+            @if (workTask.WorkTaskId != Guid.Empty)
+            {
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="p-2" />
+            }
+            <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="p-2" ButtonType="MudBlazor.ButtonType.Submit" />
+        </MudCardActions>
+    </EditForm>
+</MudCard>
+@code{
+
+}

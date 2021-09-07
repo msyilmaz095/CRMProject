@@ -1,0 +1,142 @@
+﻿@page "/AddEditProject/{ProjectId:guid}"
+<MudCard>
+    @if (MudDialog == null)
+    {
+        <MudCardHeader>
+            <CardHeaderContent>
+                @{
+                    if (ProjectId == Guid.Empty)
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                            Proje Kaydı
+                        </MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                            Proje Düzeltme
+                        </MudText>
+                    }
+                }
+            </CardHeaderContent>
+        </MudCardHeader>
+    }
+    <MudCardContent>
+        <EditForm Model="project" OnValidSubmit="OnValidSubmit">
+            <FluentValidationValidator @ref="_fluentValidationValidator" />
+            <MudCardContent>
+                <MudGrid Spacing="1">
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField For="@(() => project.ProjectNumber)" @bind-Value="project.ProjectNumber" Label="Proje Numarası"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudDatePicker For="@(() => project.ProjectDate)" @bind-Date="project.ProjectDate" Label="Proje Tarihi" PickerVariant="PickerVariant.Dialog"></MudDatePicker>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudDatePicker @bind-Date="project.ProjectStartDate" Label="Başlama Tarihi" PickerVariant="PickerVariant.Dialog" For="@(() => project.ProjectStartDate)"></MudDatePicker>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudDatePicker @bind-Date="project.ProjectFinishDate" Label="Bitiş Tarihi" PickerVariant="PickerVariant.Dialog" For="@(() => project.ProjectFinishDate)"></MudDatePicker>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="8">
+                        <MudAutocomplete For="@(() => project.CustomerId)" T="Guid" Label="Müşteri" @bind-Value="project.CustomerId"
+                                         SearchFunc="@SearchCustomer" ToStringFunc="@(e=>ToStringFuncCustomer(e))" Immediate="true" ResetValueOnEmptyText="true" />
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="4">
+                        <MudSelect @bind-Value="project.CustomerContactId" Label="Yetkili" T="Guid?" @ref="refMudSelectContact" For="@(() => project.CustomerContactId)">
+                            <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                            @if (contacts != null)
+                            {
+                                @foreach (var item in contacts)
+                                {
+                                    <MudSelectItem Value="item.ContactId" T="Guid?">@item.Name @item.SureName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="4">
+                        <MudSelect @bind-Value="project.CurrencyId" Label="Para Birimi" T="Guid?" For="@(() => project.CurrencyId)">
+                            <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                            @if (currencies != null)
+                            {
+                                @foreach (var item in currencies)
+                                {
+                                    <MudSelectItem Value="item.CurrencyId" T="Guid?">@item.CurrencyName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="4">
+                        <MudNumericField @bind-Value="project.CurrencyValue" T="double?" Label="Kur" For="@(() => project.CurrencyValue)"></MudNumericField>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="4">
+                        <MudSelect @bind-Value="project.PaymentMethodId" Label="Ödeme Şekli" T="Guid?" For="@(() => project.PaymentMethodId)">
+                            <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                            @if (paymentMethods != null)
+                            {
+                                @foreach (var item in paymentMethods)
+                                {
+                                    <MudSelectItem Value="item.PaymentMethodId" T="Guid?">@item.PaymentMethodName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="12">
+                        <MudTextField @bind-Value="project.ProjectTitle" Label="Başlık" For="@(() => project.ProjectTitle)"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="12">
+                        <MudTextField @bind-Value="project.ProjectDescription" Label="Açıklama" For="@(() => project.ProjectDescription)"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="6">
+                        <MudSelect @bind-Value="project.ProjectStatuId" Label="Durum" T="byte?" For="@(() => project.ProjectStatuId)">
+                            <MudSelectItem Value="null" T="byte?"></MudSelectItem>
+                            @if (projectStatus != null)
+                            {
+                                @foreach (var item in projectStatus)
+                                {
+                                    <MudSelectItem Value="item.ProjectStatuId" T="byte?">@item.ProjectStatuName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="6">
+                        <MudSelect @bind-Value="project.AssignedTo" Label="Temsilci" T="Guid?" For="@(() => project.AssignedTo)">
+                            <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                            @if (employees != null)
+                            {
+                                @foreach (var item in employees)
+                                {
+                                    <MudSelectItem Value="item.EmployeeId" T="Guid?">@item.Name @item.Surname</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+            <MudCardActions>
+                <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="MudBlazor.Color.Error" @onclick="Cancel" Class="mr-auto p-2" />
+                @if (project.ProjectId != Guid.Empty)
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="p-2" />
+                }
+                <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="p-2" ButtonType="MudBlazor.ButtonType.Submit" />
+            </MudCardActions>
+            @if (ProjectId != Guid.Empty)
+            {
+                <MudTabs>
+                    <MudTabPanel Text="Aktiviteler">
+                        <ProjectActivities ProjectId="ProjectId" CustomerId="project.CustomerId"></ProjectActivities>
+                    </MudTabPanel>
+                    <MudTabPanel Text="Teklifler">
+                        <ProjectSalesOffers ProjectId="ProjectId"></ProjectSalesOffers>
+                    </MudTabPanel>
+                    <MudTabPanel Text="Proje Adımları">
+                        <ProjectMilestones ProjectId="ProjectId"></ProjectMilestones>
+                    </MudTabPanel>
+                </MudTabs>
+            }
+        </EditForm>
+    </MudCardContent>
+</MudCard>

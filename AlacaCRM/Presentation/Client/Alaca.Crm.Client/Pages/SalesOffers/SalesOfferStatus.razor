@@ -1,0 +1,55 @@
+﻿@page "/SalesOfferStatus"
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Satış Teklif Durumları</CardTitle>
+            <div class="card-tools">
+                <MudIconButton @onclick="NewBarcodeType" Color="MudBlazor.Color.Success" Icon="@MudBlazor.Icons.Material.Filled.Add"></MudIconButton>
+            </div>
+        </Title>
+        <Body>
+            <DataGrid TItem="SalesOfferStatu" Data="salesOfferStatus"
+                      Filterable="true" PageSize="10" ShowPager="true"
+                      Hoverable="true"
+                      Responsive="true"
+                      Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))">
+                <DataGridColumns>
+                    <DataGridColumn TItem="SalesOfferStatu" Field="@nameof(SalesOfferStatu.SalesOfferStatuName)" Caption="Durum Adı"></DataGridColumn>
+                    <DataGridCheckColumn TItem="SalesOfferStatu" Field="@nameof(SalesOfferStatu.IsActive)" Caption="Aktif">
+                        <DisplayTemplate>
+                            <Blazorise.Check TValue="bool" Checked="context.IsActive" Disabled="true" ReadOnly="true" />
+                        </DisplayTemplate>
+                    </DataGridCheckColumn>
+                </DataGridColumns>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Satış Teklif Durum Kaydı</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="salesOfferStatu" OnValidSubmit="Save">
+            <Blazorise.ModalBody>
+                <ValidationSummary></ValidationSummary>
+                <Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator></Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>
+                <MudTextField @bind-Value="salesOfferStatu.SalesOfferStatuName" Label="Durum Adı"></MudTextField>
+                <MudItem>
+                    <MudCheckBox @bind-Checked="salesOfferStatu.IsActive" Label="Aktif"></MudCheckBox>
+                </MudItem>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton @onclick="CloseModel" Class="float-left" Color="MudBlazor.Color.Warning" Icon="@MudBlazor.Icons.Material.Filled.Close">Kapat</MudIconButton>
+                    <MudIconButton ButtonType="MudBlazor.ButtonType.Submit" Class="float-right" Color="MudBlazor.Color.Success" Icon="@MudBlazor.Icons.Material.Filled.Save">Kaydet</MudIconButton>
+                    @if (salesOfferStatu.SalesOfferStatuId != 0)
+                    {
+                        <MudIconButton @onclick="Delete" Class="float-right mr-1" Color="MudBlazor.Color.Error" Icon="@MudBlazor.Icons.Material.Filled.Delete">Sil</MudIconButton>
+                    }
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

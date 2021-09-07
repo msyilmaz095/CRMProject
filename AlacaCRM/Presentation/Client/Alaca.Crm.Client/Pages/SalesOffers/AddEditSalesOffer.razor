@@ -1,0 +1,326 @@
+﻿@page "/AddEditSalesOffer"
+@page "/AddEditSalesOffer/{SalesOfferId:guid}"
+<ContentMain>
+    <EditForm Model="salesOffer" OnValidSubmit="OnValidSubmit">
+        <Card>
+            <Title>
+                <CardTitle>TEKLİF KAYDI</CardTitle>
+                <div class="card-tools">
+                    @if (SalesOfferId != Guid.Empty)
+                    {
+                        <MudMenu Icon="@Icons.Material.Filled.MoreVert" Dense="false" Size="MudBlazor.Size.Small" Direction="Direction.Right">
+                            <MudMenuItem OnClick="ReviseOffer">Teklifi Revize Et</MudMenuItem>
+                            <MudMenuItem OnClick="CopyOffer">Teklifi Kopyala</MudMenuItem>
+                        </MudMenu>
+                    }
+                </div>
+            </Title>
+            <Body>
+                <FluentValidationValidator />
+                <MudGrid Spacing="1">
+                    <MudItem xs="12" sm="4" md="2">
+                        <MudTextField @bind-Value="salesOffer.SalesOfferNumber" Label="Teklif Numarası" Margin="Margin.Dense" For="()=>salesOffer.SalesOfferNumber"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="3">
+                        <MudTextField @bind-Value="salesOffer.ReviseNumber" Label="Revizyon Numarası" Margin="Margin.Dense" ReadOnly="true" For="()=>salesOffer.ReviseNumber"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="2">
+                        <MudDatePicker @bind-Date="salesOffer.SalesOfferDate" Label="Teklif Tarihi" Margin="Margin.Dense" PickerVariant="PickerVariant.Dialog" For="()=>salesOffer.SalesOfferDate"></MudDatePicker>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="2">
+                        <MudDatePicker @bind-Date="salesOffer.SalesOfferFinishDate" Label="Geçerlilik Tarihi" Margin="Margin.Dense" PickerVariant="PickerVariant.Dialog" For="()=>salesOffer.SalesOfferFinishDate"></MudDatePicker>
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="3">
+                        <MudSelect @bind-Value="salesOffer.AssignedTo" Label="Temsilci" Margin="Margin.Dense" T="Guid?" For="()=>salesOffer.AssignedTo">
+                            <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                            @if (employees != null)
+                            {
+                                @foreach (var item in employees)
+                                {
+                                    <MudSelectItem Value="item.EmployeeId" T="Guid?">@item.Name @item.Surname</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                </MudGrid>
+                <MudGrid Spacing="1">
+                    <MudItem xs="12" sm="12" md="6">
+                        <MudAutocomplete For="()=>salesOffer.CustomerId" ValueChanged="CustomerOnValueChange" Margin="Margin.Dense" T="Guid" Label="Müşteri" Value="salesOffer.CustomerId" SearchFunc="@SearchCustomer" CoerceValue="true" CoerceText="true" ResetValueOnEmptyText="true" ToStringFunc="@(e=>ToStringFuncCustomer(e))" />
+                        @*<MudAutocomplete T="Guid" Label="Müşteri" @bind-Value="salesOffer.CustomerId" SearchFunc="@SearchCustomer" ToStringFunc="@(e=>ToStringFuncCustomer(e))" Immediate="true" ResetValueOnEmptyText="true" />*@
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="2">
+                        <MudSelect @bind-Value="salesOffer.CustomerContactId" Label="Yetkili" Margin="Margin.Dense" T="Guid?" For="()=>salesOffer.CustomerContactId">
+                            <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                            @if (contacts != null)
+                            {
+                                @foreach (var item in contacts)
+                                {
+                                    <MudSelectItem Value="item.ContactId" T="Guid?">@item.Name @item.SureName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="4">
+                        <MudSelect @bind-Value="salesOffer.ProjectId" Label="Proje" Margin="Margin.Dense" T="Guid?" For="()=>salesOffer.ProjectId">
+                            <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                            @if (projects != null)
+                            {
+                                @foreach (var item in projects)
+                                {
+                                    <MudSelectItem Value="item.ProjectId" T="Guid?">@item.ProjectNumber @item.ProjectTitle</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="3">
+                        <MudSelect @bind-Value="salesOffer.CurrencyId" Label="Para Birimi" Margin="Margin.Dense" T="Guid?" For="()=>salesOffer.CurrencyId">
+                            <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                            @if (currencies != null)
+                            {
+                                @foreach (var item in currencies)
+                                {
+                                    <MudSelectItem Value="item.CurrencyId" T="Guid?">@item.CurrencyName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="3">
+                        <MudNumericField @bind-Value="salesOffer.CurrencyValue" T="double?" Label="Kur" Margin="Margin.Dense" For="()=>salesOffer.CurrencyValue"></MudNumericField>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="3">
+                        <MudSelect @bind-Value="salesOffer.PaymentMethodId" Label="Ödeme Şekli" Margin="Margin.Dense" T="Guid?" For="()=>salesOffer.PaymentMethodId">
+                            <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                            @if (paymentMethods != null)
+                            {
+                                @foreach (var item in paymentMethods)
+                                {
+                                    <MudSelectItem Value="item.PaymentMethodId" T="Guid?">@item.PaymentMethodName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="3">
+                        <MudSelect @bind-Value="salesOffer.SalesOfferStatuId" Label="Durum" Margin="Margin.Dense" T="byte?" For="()=>salesOffer.SalesOfferStatuId">
+                            <MudSelectItem Value="null" T="byte?"></MudSelectItem>
+                            @if (salesOfferStatus != null)
+                            {
+                                @foreach (var item in salesOfferStatus)
+                                {
+                                    <MudSelectItem Value="item.SalesOfferStatuId" T="byte?">@item.SalesOfferStatuName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="12">
+                        <MudTextField @bind-Value="salesOffer.Description" Label="Açıklama" Margin="Margin.Dense" For="()=>salesOffer.Description"></MudTextField>
+                    </MudItem>
+                </MudGrid>
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h6">Ürünler</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudIconButton Icon="@Icons.Material.Filled.Add" Color="MudBlazor.Color.Warning" @onclick="NewLine" Title="Yeni Ürün" />
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <DataGrid TItem="SalesOfferLine" Data="GetSalesOfferLines"
+                                  Hoverable="true" SortMode="DataGridSortMode.Single"
+                                  Responsive="true"
+                                  Class="table table-striped table-bordered table-hover" RowClicked="@(e=>RowClick(e.Item))">
+                            <DataGridColumns>
+                                <DataGridColumn TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.LineType)" Caption="Tipi" Width="250px">
+                                    <DisplayTemplate Context="contextLine">
+                                        @{
+                                            switch (contextLine.LineType)
+                                            {
+                                                case 1:
+                                                    @("Stok")
+                                                    break;
+                                                case 2:
+                                                    @("Masraf")
+                                                    break;
+                                                case 3:
+                                                    @("Hizmet")
+                                                    break;
+                                            }
+                                        }
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.StockId)" Caption="Ürün" Width="250px">
+                                    <DisplayTemplate Context="contextLine">
+                                        @{
+                                            switch (contextLine.LineType)
+                                            {
+                                                case 1:
+                                                    @stocks.FirstOrDefault(p => p.StockId == contextLine.StockId)?.StockName
+                                                    break;
+                                                case 2:
+                                                    @expenseCards.FirstOrDefault(p => p.ExpenseCardId == contextLine.StockId)?.ExpenseCardName
+                                                    break;
+                                                case 3:
+                                                    @serviceCards.FirstOrDefault(p => p.ServiceCardId == contextLine.StockId)?.ServiceCardName
+                                                    break;
+                                            }
+                                        }
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.StockUnitId)" Caption="Birim" Width="80px">
+                                    <DisplayTemplate Context="contextLine">
+                                        @{
+                                            @stockUnits.FirstOrDefault(p => p.StockUnitId == contextLine.StockUnitId)?.StockUnitName
+                                        }
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.TaxRate)" Caption="Kdv" Width="80px">
+                                </DataGridColumn>
+                                <DataGridColumn TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.CurrencyId)" Caption="Döviz" Width="80px">
+                                    <DisplayTemplate Context="contextLine">
+                                        @{
+                                            @currencies.FirstOrDefault(p => p.CurrencyId == contextLine.CurrencyId)?.CurrencyName
+                                        }
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.Price)" Caption="Fiyat" Width="80px">
+                                    <DisplayTemplate Context="contextLine">
+                                        @string.Format("{0:n2}", contextLine.Price)
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.Amount)" Caption="Miktar" Width="80px">
+                                    <DisplayTemplate Context="contextLine">
+                                        @string.Format("{0:n2}", contextLine.Amount)
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.DiscountTotal)" Caption="İndirim Toplam" Width="80px">
+                                    <DisplayTemplate Context="contextLine">
+                                        @string.Format("{0:n2}", contextLine.DiscountTotal)
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.Total)" Caption="Genel Toplam" Width="80px">
+                                    <DisplayTemplate Context="contextLine">
+                                        @string.Format("{0:n2}", (contextLine.Amount * contextLine.Price) - contextLine.DiscountTotal)
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.Description)" Caption="Açıklama" Width="250px"></DataGridColumn>
+                            </DataGridColumns>
+                            <DataGridAggregates>
+                                <DataGridAggregate TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.StockId)">
+                                    <DisplayTemplate Context="ContextLine">
+                                        <label class="font-weight-bold">Toplam</label>
+                                    </DisplayTemplate>
+                                </DataGridAggregate>
+                                <DataGridAggregate TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.Total)" Aggregate="DataGridAggregateType.Sum" DisplayFormat="{0:C}">
+                                </DataGridAggregate>
+                                <DataGridAggregate TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.Amount)" Aggregate="DataGridAggregateType.Sum" DisplayFormat="{0:C}" />
+                                <DataGridAggregate TItem="SalesOfferLine" Field="@nameof(SalesOfferLine.DiscountTotal)" Aggregate="DataGridAggregateType.Sum" DisplayFormat="{0:C}" />
+                            </DataGridAggregates>
+                        </DataGrid>
+                    </MudCardContent>
+                </MudCard>
+            </Body>
+            <Footer>
+                <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="MudBlazor.Color.Error" @onclick="Cancel" />
+                <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="float-right" ButtonType="MudBlazor.ButtonType.Submit" />
+                @if (salesOffer.SalesOfferId != Guid.Empty)
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="float-right" />
+                }
+            </Footer>
+        </Card>
+    </EditForm>
+</ContentMain>
+<Blazorise.Modal @ref="modalRef" ShowBackdrop="true">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Teklif Ürün Kaydı</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <EditForm Model="@salesOfferLine" OnValidSubmit="OnValidSubmitLine">
+            <Blazorise.ModalBody>
+                <FluentValidationValidator />
+                <ValidationSummary style="color:red;" />
+                <MudGrid Spacing="1">
+                    <MudItem xs="12" sm="12" md="12">
+                        <MudSelect T="byte" @bind-Value="salesOfferLine.LineType" Label="Tipi" Margin="Margin.Dense" For="()=>salesOfferLine.LineType">
+                            <MudSelectItem T="byte" Value="1">Stok Kartı</MudSelectItem>
+                            <MudSelectItem T="byte" Value="2">Hizmet Kartı</MudSelectItem>
+                            <MudSelectItem T="byte" Value="3">Masraf Kartı</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="12">
+                        @switch (salesOfferLine.LineType)
+                        {
+                            case 1:
+                                <MudAutocomplete T="Guid?" Label="Ürün" @bind-Value="salesOfferLine.StockId" For="()=>salesOfferLine.StockId"
+                                                 SearchFunc="@SearchStock" ToStringFunc="@(e=>ToStringFuncStock(e))" Immediate="true" ResetValueOnEmptyText="true" />
+                                break;
+                            case 2:
+                                <MudSelect T="Guid?" Label="Masraf" Margin="Margin.Dense" @bind-Value="salesOfferLine.StockId" For="()=>salesOfferLine.StockId">
+                                    @if (expenseCards != null)
+                                    {
+                                        @foreach (var item in expenseCards)
+                                        {
+                                            <MudSelectItem Value="item.ExpenseCardId" T="Guid?">@item.ExpenseCardName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                                break;
+                            case 3:
+                                <MudSelect T="Guid?" Label="Hizmet" Margin="Margin.Dense" Value="salesOfferLine.StockId" For="()=>salesOfferLine.StockId">
+                                    @if (serviceCards != null)
+                                    {
+                                        @foreach (var item in serviceCards)
+                                        {
+                                            <MudSelectItem Value="item.ServiceCardId" T="Guid?">@item.ServiceCardName</MudSelectItem>
+                                        }
+                                    }
+                                </MudSelect>
+                                break;
+                        }
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="6">
+                        <MudSelect @bind-Value="salesOfferLine.StockUnitId" Label="Birim" Margin="Margin.Dense" T="Guid?" For="()=>salesOfferLine.StockUnitId">
+                            <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                            @if (stockUnits != null)
+                            {
+                                @foreach (var item in stockUnits)
+                                {
+                                    <MudSelectItem Value="item.StockUnitId" T="Guid?">@item.StockUnitName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="6"><MudNumericField @bind-Value="salesOfferLine.Amount" Label="Miktar" Margin="Margin.Dense" For="()=>salesOfferLine.Amount"></MudNumericField></MudItem>
+                    <MudItem xs="12" sm="12" md="6">
+                        <MudSelect @bind-Value="salesOfferLine.CurrencyId" Label="Para Birimi" Margin="Margin.Dense" T="Guid?"  For="()=>salesOfferLine.CurrencyId">
+                            <MudSelectItem Value="null" T="Guid?"></MudSelectItem>
+                            @if (currencies != null)
+                            {
+                                @foreach (var item in currencies)
+                                {
+                                    <MudSelectItem Value="item.CurrencyId" T="Guid?">@item.CurrencyName</MudSelectItem>
+                                }
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="6"><MudNumericField @bind-Value="salesOfferLine.Price" Label="Fiyat" Margin="Margin.Dense"  For="()=>salesOfferLine.Price"></MudNumericField></MudItem>
+                    <MudItem xs="12" sm="12" md="12"><MudTextField @bind-Value="salesOfferLine.Description" Label="Açıklama" Margin="Margin.Dense" For="()=>salesOfferLine.Description"></MudTextField></MudItem>
+                    <MudItem xs="12" sm="12" md="6"><MudNumericField @bind-Value="salesOfferLine.DiscountRate" Label="İndirim Oranı(%)" Margin="Margin.Dense" For="()=>salesOfferLine.DiscountRate"></MudNumericField></MudItem>
+                    <MudItem xs="12" sm="12" md="6"><MudNumericField @bind-Value="salesOfferLine.DiscountAmount" Label="İndirim Tutarı" Margin="Margin.Dense" For="()=>salesOfferLine.DiscountAmount"></MudNumericField></MudItem>
+                    <MudItem xs="12" sm="12" md="12"><MudNumericField Value="GetDiscountTotal" Label="Toplam İndirim" Margin="Margin.Dense" ReadOnly="true"></MudNumericField></MudItem>
+                </MudGrid>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <MudItem xs="12" md="12" lg="12" sm="12">
+                    <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="MudBlazor.Color.Warning" @onclick="@(()=>modalRef.Hide())" Class="float-left" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" ButtonType="MudBlazor.ButtonType.Submit" Class="float-right" />
+                    @if (salesOfferLine.SaleOfferLineId != Guid.Empty)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Error" @onclick="DeleteLine" Class="float-right" />
+                    }
+                </MudItem>
+            </Blazorise.ModalFooter>
+        </EditForm>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

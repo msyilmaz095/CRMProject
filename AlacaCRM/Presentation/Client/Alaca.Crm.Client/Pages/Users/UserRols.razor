@@ -1,0 +1,63 @@
+﻿@page "/UserRoles"
+@inherits UserRolsBase
+<!-- Main content -->
+
+<ContentMain>
+    <Card>
+        <Title>
+            <CardTitle>Rol Tanımları</CardTitle>
+        </Title>
+        <Body>
+            <DataGrid TItem="Entities.Concrete.UserRole" Data="lstUserRole" Filterable="true" ShowPager="true" PageSize="3" class="table table-bordered table-striped">
+                <ChildContent>
+                    <DataGridColumn TItem="Entities.Concrete.UserRole" Field="@nameof(Entities.Concrete.UserRole.UserRoleId)" Caption="#" Sortable="false" Filterable="false">
+                        <CaptionTemplate>
+                            <button @onclick="()=>NewUserRole()" type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></button>
+                        </CaptionTemplate>
+                        <DisplayTemplate>
+                            <button @onclick="() => GetUserRole((context as Entities.Concrete.UserRole).UserRoleId)" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
+                            <button @onclick="() => DeleteUserRole((context as Entities.Concrete.UserRole).UserRoleId)" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                        </DisplayTemplate>
+                    </DataGridColumn>
+                    <DataGridColumn TItem="Entities.Concrete.UserRole" Field="@nameof(Entities.Concrete.UserRole.UserRoleName)" Caption="Rol Adı" Editable="true" />
+                    <DataGridCheckColumn TItem="Entities.Concrete.UserRole" Field="@nameof(Entities.Concrete.UserRole.IsActive)" Caption="Aktif" Editable="true" />
+                    <DataGridColumn TItem="Entities.Concrete.UserRole" Field="@nameof(Entities.Concrete.UserRole.CreateDate)" Caption="Kayıt Zamanı" Editable="true" />
+                    <DataGridColumn TItem="Entities.Concrete.UserRole" Field="@nameof(Entities.Concrete.UserRole.UpdateDate)" Caption="Güncelleme Zamanı" Editable="true" />
+                </ChildContent>
+            </DataGrid>
+        </Body>
+    </Card>
+</ContentMain>
+
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered="true">
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Posizyon</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+            <Blazorise.ModalBody>
+                <div class="form-group">
+                    <label for="UserRole1">Rol Adı</label>
+                    <input type="text" @bind-value="userRole.UserRoleName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="IsActive">Aktif</label>
+                    <input @bind="@userRole.IsActive" type="checkbox" class="form-check-label" />
+                </div>
+                <div class="form-group">
+                    <label for="IsActive">Yetkiler</label>
+                    <div class="form-group row">
+                        <MudTreeView CanActivate="true" Items="lstMenu" CanSelect="true" @bind-ActivatedValue="ActivatedValue" @bind-SelectedValues="SelectedValues">
+                            <ItemTemplate>
+                                <MudTreeViewItem Text="@context.MenuName" @bind-Expanded="@context.IsExpented" Items="@context.Menus" Value="@context" Icon="@context.Icon" EndText="@context.MenuId.ToString()" EndTextTypo="@Typo.caption" />
+                            </ItemTemplate>
+                        </MudTreeView>
+                    </div>
+                </div>
+            </Blazorise.ModalBody>
+            <Blazorise.ModalFooter>
+                <button type="button" class="btn btn-default" @onclick="@(()=>modalRef.Hide())">Kapat</button>
+                <button class="btn btn-primary" @onclick="OnValidSubmit">Kaydet</button>
+            </Blazorise.ModalFooter>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

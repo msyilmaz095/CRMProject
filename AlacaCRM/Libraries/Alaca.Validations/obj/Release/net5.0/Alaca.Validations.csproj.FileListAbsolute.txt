@@ -1,0 +1,17 @@
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\bin\Release\net5.0\Alaca.Validations.deps.json
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\bin\Release\net5.0\Alaca.Validations.dll
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\bin\Release\net5.0\ref\Alaca.Validations.dll
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\bin\Release\net5.0\Alaca.Validations.pdb
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\bin\Release\net5.0\Alaca.Core.dll
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\bin\Release\net5.0\Alaca.Entities.dll
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\bin\Release\net5.0\Alaca.Entities.pdb
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\bin\Release\net5.0\Alaca.Core.pdb
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\obj\Release\net5.0\Alaca.Validations.csprojAssemblyReference.cache
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\obj\Release\net5.0\Alaca.Validations.GeneratedMSBuildEditorConfig.editorconfig
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\obj\Release\net5.0\Alaca.Validations.AssemblyInfoInputs.cache
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\obj\Release\net5.0\Alaca.Validations.AssemblyInfo.cs
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\obj\Release\net5.0\Alaca.Validations.csproj.CoreCompileInputs.cache
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\obj\Release\net5.0\Alaca.Validations.csproj.CopyComplete
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\obj\Release\net5.0\Alaca.Validations.dll
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\obj\Release\net5.0\ref\Alaca.Validations.dll
+D:\Alaca\AlacaCRM\Libraries\Alaca.Validations\obj\Release\net5.0\Alaca.Validations.pdb

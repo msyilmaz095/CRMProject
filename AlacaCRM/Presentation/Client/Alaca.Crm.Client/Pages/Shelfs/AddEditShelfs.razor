@@ -1,0 +1,55 @@
+﻿@page "/AddEditShelfs/{ShelfId:guid}"
+<MudCard>
+    @if (_mudDialog == null)
+    {
+        <MudCardHeader>
+            <CardHeaderContent>
+                @{
+                    if (ShelfId == Guid.Empty)
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                            Raf Kaydı
+                        </MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                            Raf Düzeltme
+                        </MudText>
+                    }
+                }
+            </CardHeaderContent>
+            <CardHeaderActions>
+            </CardHeaderActions>
+        </MudCardHeader>
+    }
+    <EditForm Model="shelf" OnValidSubmit="OnValidSubmit">
+        <FluentValidationValidator @ref="_fluentValidationValidator" />
+        <MudCardContent>
+            <MudGrid>
+                <MudItem md="12" sm="12" xs="12">
+                    <MudTextField Label="Raf Adı" @bind-Text="shelf.ShelfName" T="string" For="()=>shelf.ShelfName"></MudTextField>
+                </MudItem>
+                <!--<MudItem md="12" sm="12" xs="12">
+                    <MudTextField Label="Fabrika İl" @bind-Text="shelf.ShelfStoreId" T="string" For="()=>shelf.ShelfStoreId"></MudTextField>
+                </MudItem>-->
+                <MudItem md="12" sm="12" xs="12">
+                    <MudTextField Label="Raf Açıklaması" @bind-Text="shelf.Description" T="string" For="()=>shelf.Description"></MudTextField>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+        <MudCardActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Close" Color="MudBlazor.Color.Error" @onclick="Cancel" Class="mr-auto p-2" />
+            @if (shelf.ShelfId != Guid.Empty)
+            {
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Warning" @onclick="Delete" Class="p-2" />
+            }
+            <MudIconButton Icon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Success" Class="p-2" ButtonType="MudBlazor.ButtonType.Submit" />
+        </MudCardActions>
+    </EditForm>
+</MudCard>
+@code{
+
+}
